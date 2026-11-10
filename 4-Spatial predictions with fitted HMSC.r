@@ -51,6 +51,8 @@ load(model_file)
 grid_env <- get(load(
   paste0("./Inputs_HMSC/Hindcast_Env_grid_rect", SpatRes, "_WMED_", Depthrange, ".RData")
 ))
+# Drop potential duplicate rows per (X, Y, YEAR) to avoid redundant computation
+grid_env <- dplyr::distinct(grid_env, X, Y, YEAR, .keep_all = TRUE)
 grid_env$Depth <- (-1) * grid_env$Depth
 
 # ------------------------------------------------------------------------------

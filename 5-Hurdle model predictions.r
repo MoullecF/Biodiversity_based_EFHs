@@ -68,6 +68,8 @@ for (i in seq_along(vec_year)) {
 # ------------------------------------------------------------------------------
 
 grid_env <- get(load("./Inputs_HMSC/Hindcast_Env_grid_rect0.05_WMED_0_1000.RData"))
+# Drop potential duplicate rows per (X, Y, YEAR) to avoid redundant computation
+grid_env <- dplyr::distinct(grid_env, X, Y, YEAR, .keep_all = TRUE)
 xy <- grid_env[grid_env$YEAR == 1999, c("X", "Y")]
 
 WD_SpatialPred <- "./Outputs/Hurdle_prediction/Mean/"
