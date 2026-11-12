@@ -15,7 +15,7 @@ if (!requireNamespace(required_package, quietly = TRUE)) {
 library(zenodor)
 
 # ---- Configuration ----
-record_id <- "18632167"
+record_id <- "18632166"
 target_file_name <- "r_stack_Hurdle_0.05_0_1000_19992021.Rdata"
 target_dir <- file.path("Outputs", "Spatio_temporal_prediction")
 if (!dir.exists(target_dir)) {
