@@ -125,7 +125,7 @@ run_ehsa <- function(stage_name, raster_stack, depth_mask, nsim = 199, seed = NU
 }
 
 # -----------------------------------------------------------------------------
-# Run EHSA per life stage
+# Run EHSA per life stage (~10min per stage with nsim = 999)
 # -----------------------------------------------------------------------------
 
 for (stage in stages_to_run) {
