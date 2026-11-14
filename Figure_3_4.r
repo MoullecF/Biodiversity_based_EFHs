@@ -15,8 +15,8 @@ source("./ggplot_theme.R")
 # Load and order EHSA outputs
 # -----------------------------------------------------------------------------
 
-ehsa_juvenile_90 <- readRDS("./Outputs/EHSA/EHSA_juvenile_90.rds")
-ehsa_adult_90 <- readRDS("./Outputs/EHSA/EHSA_adult_90.rds")
+ehsa_juvenile_90 <- readRDS("./Outputs/EHSA/EHSA_juvenile.rds")
+ehsa_adult_90 <- readRDS("./Outputs/EHSA/EHSA_adult.rds")
 
 classification_order <- c(
   "intensifying hotspot",
@@ -70,7 +70,7 @@ palette_ehsa <- c(
 # -----------------------------------------------------------------------------
 
 plot_ehsa_map <- function(ehsa_sf, show_legend, stage_label) {
-  # Render classification polygons in the original spatial extent.
+  # Render classification polygons in the original spatial extent
   ggplot(data = world) +
     geom_sf(
       data = ehsa_sf,
@@ -101,24 +101,16 @@ plot_ehsa_map <- function(ehsa_sf, show_legend, stage_label) {
 }
 
 ehsa_juv_90 <- plot_ehsa_map(ehsa_juvenile_90, show_legend = TRUE, stage_label = "Juveniles")
-ehsa_juv_90
 
 ehsa_adu_90 <- plot_ehsa_map(ehsa_adult_90, show_legend = FALSE, stage_label = "Adults")
-ehsa_adu_90
 
 map_ehsa <- ehsa_juv_90 / ehsa_adu_90 +
   plot_layout(guides = "collect") +
   plot_annotation(tag_levels = "A") &
   theme(legend.position = "right")
 
-ggplot2::ggsave(
-  map_ehsa,
-  filename = "./Figures/Figure_3.png",
-  width = 20,
-  height = 15,
-  units = "cm",
-  dpi = 400
-)
+# Save
+# ggplot2::ggsave(map_ehsa, filename = "./Figures/Figure_3.png", width = 20, height = 15, units = "cm", dpi = 400)
 
 # -----------------------------------------------------------------------------
 # Figure 4: Surface areas by classification
@@ -135,7 +127,7 @@ surface_area_km2 <- ehsa_juvenile_90_proj %>%
   as.numeric()
 
 summarize_area_by_classification <- function(ehsa_proj, onto_label, surface_area_km2) {
-  # Collapse to total area per classification and aggregate small classes.
+  # Collapse to total area per classification and aggregate small classes
   ehsa_proj %>%
     mutate(
       area_km2 = st_area(geometry) %>%
@@ -245,8 +237,8 @@ print(coldspot_summary)
 custom_ylabels <- c(
   "<span style='font-size:12pt'>0%</span>",
   "<span style='font-size:12pt'>25%</span>",
-  "<span style='font-size:10pt'>33.4%</span>",
-  "<span style='font-size:10pt'>38.4%</span>",
+  "<span style='font-size:10pt'>46%</span>",
+  "<span style='font-size:10pt'>35.2%</span>",
   "<span style='font-size:12pt'>50%</span>",
   "<span style='font-size:12pt'>75%</span>",
   "<span style='font-size:12pt'>100%</span>"
@@ -257,34 +249,15 @@ palette_ehsa_with_other <- c(palette_ehsa, "Others (< 1%)" = "grey")
 gg_surf_spot <- ggplot(tab_surf, aes(x = onto, y = pct_total, fill = classification)) +
   geom_col(position = position_stack(reverse = TRUE)) +
   scale_fill_manual(values = palette_ehsa_with_other, guide = guide_legend(reverse = TRUE)) +
-  scale_y_continuous(
-    limits = c(0, 100),
-    breaks = c(0, 25, 33.4, 38.4, 50, 75, 100),
-    labels = custom_ylabels,
-    expand = c(0, 0)
-  ) +
+  scale_y_continuous(limits = c(0, 100), breaks = c(0, 25, 46, 35.2, 50, 75, 100), labels = custom_ylabels, expand = c(0, 0)) +
   scale_x_discrete(limits = c("Juveniles", "Adults"), expand = c(0, 0)) +
   labs(x = "", y = "Proportion of total surface", fill = "Pattern") +
-  geom_segment(
-    aes(x = 0.55, xend = 1.45, y = 33.5, yend = 33.5),
-    linetype = "dashed",
-    color = "black",
-    linewidth = 0.7
-  ) +
-  geom_segment(
-    aes(x = 0.55, xend = 2.45, y = 38.4, yend = 38.4),
-    linetype = "dashed",
-    color = "black",
-    linewidth = 0.7
-  ) +
+  geom_segment(aes(x = 0.55, xend = 1.45, y = 46, yend = 46),
+    linetype = "dashed", color = "black", linewidth = 0.7) +
+  geom_segment(aes(x = 0.55, xend = 2.45, y = 35.2, yend = 35.2),
+    linetype = "dashed", color = "black", linewidth = 0.7) +
   HMSC.theme +
   theme(plot.margin = unit(c(1, 1, 1, 1), units = , "cm"), axis.text.y = element_markdown())
 
-ggplot2::ggsave(
-  gg_surf_spot,
-  filename = "./Figures/Figure_4.png",
-  width = 20,
-  height = 15,
-  units = "cm",
-  dpi = 400
-)
+# Save
+# ggplot2::ggsave(gg_surf_spot, filename = "./Figures/Figure_4.png", width = 20, height = 15, units = "cm", dpi = 400)
