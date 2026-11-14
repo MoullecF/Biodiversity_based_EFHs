@@ -61,7 +61,7 @@ for (i in seq_along(vec_year)) {
   gc()
 }
 
-# Generated outputs represent more than 1GB of data. They can be requested from the authors.
+# Generated outputs represent more than 1TB of data. They can be requested from the authors.
 
 # ------------------------------------------------------------------------------
 # Spatial grid and XY coordinates
