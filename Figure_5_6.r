@@ -18,8 +18,8 @@ source("./ggplot_theme.R")
 # Projected CRS used for area calculations (km²)
 med_albers_crs <- "+proj=aea +lat_1=30 +lat_2=45 +lat_0=37.5 +lon_0=15 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
 
-path_ehsa_juvenile <- "./Outputs/EHSA/EHSA_juvenile_90.rds"
-path_ehsa_adult <- "./Outputs/EHSA/EHSA_adult_90.rds"
+path_ehsa_juvenile <- "./Outputs/EHSA/EHSA_juvenile.rds"
+path_ehsa_adult <- "./Outputs/EHSA/EHSA_adult.rds"
 
 ehsa_juvenile_90 <- readRDS(path_ehsa_juvenile)
 ehsa_adult_90 <- readRDS(path_ehsa_adult)
@@ -44,7 +44,7 @@ npd_remove <- c("J.New - A.Npd", "J.Int - A.Npd", "J.Per - A.Npd", "J.dim - A.Np
 # Factor level order for hotspot combinations
 hs_levels <- c("J.Int - A.Int", "J.Int - A.Per", "J.Int - A.Spo",
   "J.Per - A.Int", "J.Per - A.Per", "J.Per - A.Spo",
-  "J.dim - A.Int", "J.dim - A.Per", "J.dim - A.Spo",
+  "J.Dim - A.Int", "J.Dim - A.Per", "J.Dim - A.Spo",
   "J.Spo - A.Int", "J.Spo - A.Per", "J.Spo - A.Spo",
   "J.Con - A.Per", "J.New - A.Int", "J.New - A.Per", "J.New - A.Spo",
   "J.Npd - A.Npd")
@@ -77,7 +77,7 @@ shorten_classification <- function(classification, prefix, spot_type) {
     setNames(paste0(prefix, ".Con"), paste0("Consecutive ", spot_type)),
     setNames(paste0(prefix, ".Int"), paste0("Intensifying ", spot_type)),
     setNames(paste0(prefix, ".Per"), paste0("Persistent ", spot_type)),
-    setNames(paste0(prefix, ".dim"), paste0("Diminishing ", spot_type)),
+    setNames(paste0(prefix, ".Dim"), paste0("Diminishing ", spot_type)),
     setNames(paste0(prefix, ".Spo"), paste0("Sporadic ", spot_type)))
   str_replace_all(classification, replacements)
 }
@@ -197,19 +197,20 @@ hs_palette_base <- colorRampPalette(brewer.pal(9, "YlGn"))(13)
 cs_palette_base <- colorRampPalette(brewer.pal(9, "BuPu"))(22)
 
 hs_legend_col <- c(
-  "J.Int - A.Int" = hs_palette_base[13],
-  "J.Int - A.Per" = hs_palette_base[12],
-  "J.Int - A.Spo" = hs_palette_base[11],
-  "J.Per - A.Int" = hs_palette_base[10],
-  "J.Per - A.Per" = hs_palette_base[9],
-  "J.Per - A.Spo" = hs_palette_base[8],
-  "J.dim - A.Spo" = hs_palette_base[7],
-  "J.Spo - A.Int" = hs_palette_base[6],
-  "J.Spo - A.Per" = hs_palette_base[5],
-  "J.Spo - A.Spo" = hs_palette_base[4],
-  "J.Con - A.Per" = hs_palette_base[3],
-  "J.New - A.Int" = hs_palette_base[2],
-  "J.New - A.Spo" = hs_palette_base[1])
+  "J.Int - A.Int" = hs_palette_base[12],
+  "J.Int - A.Per" = hs_palette_base[11],
+  "J.Int - A.Spo" = hs_palette_base[10],
+  "J.Per - A.Int" = hs_palette_base[9],
+  "J.Per - A.Per" = hs_palette_base[8],
+  "J.Per - A.Spo" = hs_palette_base[7],
+  "J.Dim - A.Per" = hs_palette_base[6],
+  "J.Dim - A.Spo" = hs_palette_base[5],
+  "J.Spo - A.Int" = hs_palette_base[4],
+  "J.Spo - A.Per" = hs_palette_base[3],
+  "J.Spo - A.Spo" = hs_palette_base[2],
+  #"J.Con - A.Per" = hs_palette_base[3],
+  "J.New - A.Int" = hs_palette_base[1])
+  #"J.New - A.Spo" = hs_palette_base[1])
 
 cs_legend_col <- c(
   "J.Int - A.Int" = cs_palette_base[22],
@@ -258,7 +259,7 @@ gg.combined.spot <- ggplot(data = world) +
   geom_sf(data = cs_df, aes(fill = Classification), color = "white", lwd = 0.05, inherit.aes = TRUE) +
   scale_fill_manual("Coldspots Pattern", values = cs_legend_col) +
   geom_sf(fill = "grey90", color = "grey20") +
-  coord_sf(xlim = c(st_bbox(hs_df)[1] - 0.1, st_bbox(hs_df)[3] + 0.1), ylim = c(st_bbox(hs_df)[2] - 0.1, st_bbox(hs_df)[4] + 0.1), expand = FALSE) +
+  coord_sf(xlim = c(st_bbox(hs_df)[1] - 0.5, st_bbox(hs_df)[3] + 0.1), ylim = c(st_bbox(hs_df)[2] - 0.1, st_bbox(hs_df)[4] + 0.4), expand = FALSE) +
   labs(fill = "Classification", x = "Longitude", y = "Latitude") +
   guides(fill = guide_legend(ncol = 2)) +
   theme(
@@ -296,32 +297,37 @@ cold_palette <- c(
   "Others (< 1%)" = "grey")
 
 hot_palette <- c(
-  "J.Int - A.Per" = "#005C32", "J.Per - A.Per" = "#379E54", "J.Per - A.Spo" = "#53B466",
-  "J.Spo - A.Per" = "#BBE395", "J.Spo - A.Spo" = "#D9F0A3",
+  "J.Int - A.Int" = "#005C32", "J.Int - A.Per" = "#0C713B", "J.Int - A.Spo" = "#238443",
+  "J.Per - A.Int" = "#379E54", "J.Per - A.Per" = "#53B466", "J.Per - A.Spo" = "#78C679",
+  "J.Spo - A.Per" = "#EDF8B2", "J.Spo - A.Spo" = "#FAFDC8",
   "Others (< 1%)" = "grey")
 
 gg.surf <- ggplot(tab_surf) +
   geom_col(data = filter(tab_surf, Spot == "Coldspots"), aes(x = Spot, y = pct_total, fill = fct_relevel(
         Classification,
-        "Others (< 1%)", "J.Int - A.Int", "J.Int - A.Per", "J.Int - A.Spo",
+        "Others (< 1%)", "J.Int - A.Int", "J.Int - A.Per",
         "J.Per - A.Int", "J.Per - A.Per", "J.Per - A.Spo",
         "J.Spo - A.Int", "J.Spo - A.Per", "J.Spo - A.Spo")), position = position_stack(reverse = FALSE)) +
   scale_fill_manual(values = cold_palette, name = "Combined Coldspots Pattern",
-    breaks = c(
-      "J.Int - A.Int", "J.Int - A.Per", "J.Int - A.Spo",
+    breaks = c("J.Int - A.Int", "J.Int - A.Per",
       "J.Per - A.Int", "J.Per - A.Per", "J.Per - A.Spo",
-      "J.Spo - A.Int", "J.Spo - A.Per", "J.Spo - A.Spo", "Others (< 1%)")) +
+      "J.Spo - A.Int", "J.Spo - A.Per", "J.Spo - A.Spo",
+      "Others (< 1%)"), drop = FALSE) +
   guides(fill = guide_legend(ncol = 2)) +
   new_scale_fill() +
   geom_col(data = filter(tab_surf, Spot == "Hotspots"), aes(x = Spot, y = pct_total, fill = fct_relevel(
         Classification,
-        "Others (< 1%)", "J.Int - A.Per", "J.Per - A.Per", "J.Per - A.Spo",
+        "Others (< 1%)", "J.Int - A.Int", "J.Int - A.Per", "J.Int - A.Spo",
+        "J.Per - A.Int", "J.Per - A.Per", "J.Per - A.Spo",
         "J.Spo - A.Per", "J.Spo - A.Spo")), position = position_stack(reverse = FALSE)) +
   scale_fill_manual(values = hot_palette, name = "Combined Hotspots Pattern",
-    breaks = c("J.Int - A.Per", "J.Per - A.Per", "J.Per - A.Spo",
-      "J.Spo - A.Per", "J.Spo - A.Spo", "Others (< 1%)")) +
+    breaks = c("J.Int - A.Int", "J.Int - A.Per", "J.Int - A.Spo",
+      "J.Per - A.Int", "J.Per - A.Per", "J.Per - A.Spo",
+      "J.Spo - A.Per", "J.Spo - A.Spo",
+      "Others (< 1%)"), drop = FALSE) +
   scale_x_discrete(limits = c("Coldspots", "Hotspots"), expand = c(0, 0)) +
-  scale_y_continuous(limits = c(0, 32), breaks = c(0, 10, 20, 30), labels = c("0%", "10%", "20%", "30%"), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, 27),
+    breaks = c(0, 10, 20, 25), labels = c("0%", "10%", "20%", "25%"), expand = c(0, 0)) +
   labs(x = "", y = "Proportion of total surface") +
   HMSC.theme +
   guides(fill = guide_legend(ncol = 2)) +
