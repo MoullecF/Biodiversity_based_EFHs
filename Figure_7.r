@@ -249,4 +249,4 @@ dominant_with_bar <- (dominant_map | bar_hotspots) +
 dominant_with_bar
 
 # Save
-ggplot2::ggsave(dominant_with_bar, filename = "./Figures/Figure_7.png", width = 45, height = 18, units = "cm", dpi = 400)
+# ggplot2::ggsave(dominant_with_bar, filename = "./Figures/Figure_7.png", width = 45, height = 18, units = "cm", dpi = 400)
