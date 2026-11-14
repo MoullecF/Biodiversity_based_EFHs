@@ -17,6 +17,12 @@ source("./ggplot_theme.R")
 # Load raster stack of hurdle-model outputs (species, stage, year)
 hurdle_stack <- get(load("./Outputs/Spatio_temporal_prediction/r_stack_Hurdle_0.05_0_1000_19992021.Rdata"))
 
+# Load depth mask
+depth_mask <- readRDS("./Inputs_HMSC/depth_mask.RDS")
+
+# Apply depth mask to hurdle stack (to remove potential extrapolation beyond depth range)
+hurdle_stack <- mask(hurdle_stack, depth_mask)
+
 # Parse life stage and year out of each layer name
 layer_meta <- str_match(names(hurdle_stack), "(.*)_(juvenile|adult)_(\\d{4})")
 stage <- layer_meta[, 3]
@@ -93,6 +99,16 @@ build_slope_df <- function(sen_slope, sen_pvalue) {
 slope_df_juvenile <- build_slope_df(sen_slope_juvenile, sen_pvalue_juvenile)
 slope_df_adult <- build_slope_df(sen_slope_adult, sen_pvalue_adult)
 
+# Proportion of significant and non significant trends per life stage
+prop_significant <- function(slope_df) {
+  prop_sig <- round(sum(slope_df$significant, na.rm = TRUE) / sum(!is.na(slope_df$significant)), 2)
+  prop_non_sig <- round(1 - prop_sig, 2)
+  c(significant = prop_sig, non_significant = prop_non_sig)
+}
+
+prop_significant_juvenile <- prop_significant(slope_df_juvenile)
+prop_significant_adult <- prop_significant(slope_df_adult)
+
 bin_sen_slope <- function(slope_df, breaks, labels) {
   slope_df$value_binned <- cut(
     slope_df$slope,
@@ -105,20 +121,20 @@ bin_sen_slope <- function(slope_df, breaks, labels) {
 
 # Bin thresholds differ between stages to reflect their distinct slope ranges
 slope_df_juvenile <- bin_sen_slope(slope_df_juvenile,
-  breaks = c(-Inf, -35, -16, -10, -6, -3, 0, 1, 2, 4, Inf),
-  labels = c("< -35", "[-35;-16[", "[-16;-10[", "[-10;-6[", "[-6;-3[",
-    "[-3;0[", "[0;+1[", "[+1;+2[", "[+2;+4[", "> +4"))
+  breaks = c(-Inf, -16, -10, -7, -4, -1, 0, 1, 2, 4, Inf),
+  labels = c("< -16", "[-16;-10[", "[-10;-7[", "[-7;-4[", "[-4;-1[",
+    "[-1;0[", "[0;+1[", "[+1;+2[", "[+2;+4[", "> +4"))
 
 slope_df_adult <- bin_sen_slope(slope_df_adult,
-  breaks = c(-Inf, -193, -103, -54, -32, -16, -7, -2, 0, 7, Inf),
-  labels = c("< -193", "[-193;-103[", "[-103;-54[", "[-54;-32[", "[-32;-16[",
-    "[-16;-7[", "[-7;-2[", "[-2;0[", "[0;+7[", "> +7"))
+  breaks = c(-Inf, -142, -112, -59, -37, -21, -11, -5, 0, 7, Inf),
+  labels = c("< -142", "[-142;-112[", "[-112;-59[", "[-59;-37[", "[-37;-21[",
+    "[-21;-11[", "[-11;-5[", "[-5;0[", "[0;+7[", "> +7"))
 
 # -----------------------------------------------------------------------------
 # Colour palettes
 # -----------------------------------------------------------------------------
 
-col_neg_juvenile <- c("#CBDEF0", "#ABCFE5", "#81BADA", "#58A1CE", "#3787C0", "#1B69AF", "#084D96")
+col_neg_juvenile <- c("#CBDEF0", "#ABCFE5", "#81BADA", "#58A1CE", "#3787C0", "#1B69AF")
 col_neg_adult <- c("#E0ECF7", "#CBDEF0", "#ABCFE5", "#81BADA", "#58A1CE", "#3787C0", "#1B69AF", "#084D96")
 col_pos_juvenile <- c("#FFFFCC", "#FEE692", "#FEBF5A", "#FD8D3C")
 col_pos_adult <- c("#FFFFCC", "#FEE692")
