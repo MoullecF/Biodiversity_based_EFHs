@@ -1,0 +1,527 @@
+===== 1999 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    924           12.06       
+Analogue      6739          87.94       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       909           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           1             0.013       
+-----------   -----------   -----------   ----------- 
+Total                       924           12          
+
+===== 2000 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    924           12.06       
+Analogue      6739          87.94       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       909           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           1             0.013       
+-----------   -----------   -----------   ----------- 
+Total                       924           12          
+
+===== 2001 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    923           12.04       
+Analogue      6740          87.96       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       902           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           7             0.091       
+-----------   -----------   -----------   ----------- 
+Total                       923           12          
+
+===== 2002 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    924           12.06       
+Analogue      6739          87.94       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       908           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           2             0.026       
+-----------   -----------   -----------   ----------- 
+Total                       924           12          
+
+===== 2003 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    922           12.03       
+Analogue      6741          87.97       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       906           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           2             0.026       
+-----------   -----------   -----------   ----------- 
+Total                       922           12          
+
+===== 2004 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    917           11.97       
+Analogue      6746          88.03       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       901           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           2             0.026       
+-----------   -----------   -----------   ----------- 
+Total                       917           12          
+
+===== 2005 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    916           11.95       
+Analogue      6747          88.05       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       900           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           2             0.026       
+-----------   -----------   -----------   ----------- 
+Total                       916           12          
+
+===== 2006 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    951           12.41       
+Analogue      6712          87.59       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       894           12          
+Univariate    SSS           43            0.56        
+Univariate    Gravity       14            0.18        
+-----------   -----------   -----------   ----------- 
+Total                       951           12          
+
+===== 2007 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    915           11.94       
+Analogue      6748          88.06       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       899           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           2             0.026       
+-----------   -----------   -----------   ----------- 
+Total                       915           12          
+
+===== 2008 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    915           11.94       
+Analogue      6748          88.06       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       899           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           2             0.026       
+-----------   -----------   -----------   ----------- 
+Total                       915           12          
+
+===== 2009 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    917           11.97       
+Analogue      6746          88.03       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       900           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           3             0.039       
+-----------   -----------   -----------   ----------- 
+Total                       917           12          
+
+===== 2010 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    915           11.94       
+Analogue      6748          88.06       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       899           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           2             0.026       
+-----------   -----------   -----------   ----------- 
+Total                       915           12          
+
+===== 2011 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    16            0.21        
+Analogue      7647          99.79       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Gravity       14            0.18        
+Univariate    Fishing       1             0.013       
+Univariate    SSS           1             0.013       
+-----------   -----------   -----------   ----------- 
+Total                       16            0.21        
+
+===== 2012 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    16            0.21        
+Analogue      7647          99.79       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Gravity       14            0.18        
+Univariate    SSS           2             0.026       
+-----------   -----------   -----------   ----------- 
+Total                       16            0.21        
+
+===== 2013 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    915           11.94       
+Analogue      6748          88.06       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       900           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           1             0.013       
+-----------   -----------   -----------   ----------- 
+Total                       915           12          
+
+===== 2014 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    921           12.02       
+Analogue      6742          87.98       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       905           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           2             0.026       
+-----------   -----------   -----------   ----------- 
+Total                       921           12          
+
+===== 2015 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    921           12.02       
+Analogue      6742          87.98       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       905           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           2             0.026       
+-----------   -----------   -----------   ----------- 
+Total                       921           12          
+
+===== 2016 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    923           12.04       
+Analogue      6740          87.96       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       908           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           1             0.013       
+-----------   -----------   -----------   ----------- 
+Total                       923           12          
+
+===== 2017 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    984           12.84       
+Analogue      6679          87.16       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       886           12          
+Univariate    SSS           84            1.1         
+Univariate    Gravity       14            0.18        
+-----------   -----------   -----------   ----------- 
+Total                       984           13          
+
+===== 2018 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    922           12.03       
+Analogue      6741          87.97       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       906           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           2             0.026       
+-----------   -----------   -----------   ----------- 
+Total                       922           12          
+
+===== 2019 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    922           12.03       
+Analogue      6741          87.97       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       906           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           2             0.026       
+-----------   -----------   -----------   ----------- 
+Total                       922           12          
+
+===== 2020 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    15            0.2         
+Analogue      7648          99.8        
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Gravity       14            0.18        
+Univariate    SSS           1             0.013       
+-----------   -----------   -----------   ----------- 
+Total                       15            0.2         
+
+===== 2021 =====
+
+
+Table: Extrapolation
+
+Type          Count         Percentage  
+------------  ------------  ------------
+Univariate    916           11.95       
+Analogue      6747          88.05       
+-----------   -----------   ----------- 
+Total         7663          100         
+
+
+Table: Most influential covariates (MIC)
+
+Type          Covariate     Count         Percentage  
+------------  ------------  ------------  ------------
+Univariate    Fishing       901           12          
+Univariate    Gravity       14            0.18        
+Univariate    SSS           1             0.013       
+-----------   -----------   -----------   ----------- 
+Total                       916           12          
+
