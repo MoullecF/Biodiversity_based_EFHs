@@ -2,3 +2,9 @@
 .Rhistory
 .RData
 .Ruserdata
+
+# EHSA GIS viewer supporting files (keep only the html output)
+Outputs/EHSA/EHSA_GIS_viewer_files/
+Save_EHSA_outputs_as_geopackages.R
+Multivariate Environmental Similarity Surfaces.R
+.posit/assistant/settings.json
