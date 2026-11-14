@@ -16,6 +16,12 @@ source("./ggplot_theme.R")
 
 hurdle_stack <- get(load("./Outputs/Spatio_temporal_prediction/r_stack_Hurdle_0.05_0_1000_19992021.Rdata"))
 
+# Load depth mask
+depth_mask <- readRDS("./Inputs_HMSC/depth_mask.RDS")
+
+# Apply depth mask to hurdle stack (to remove potential extrapolation beyond depth range)
+hurdle_stack <- mask(hurdle_stack, depth_mask)
+
 # Parse life stage and year out of each layer name
 layer_meta <- str_match(names(hurdle_stack), "(.*)_(juvenile|adult)_(\\d{4})")
 stage <- layer_meta[, 3]
@@ -78,8 +84,8 @@ slope_df_adult <- build_slope_df(sen_slope_adult, sen_pvalue_adult)
 # Projected CRS used for area calculations (km²), matching Figure_5_6.r.
 med_albers_crs <- "+proj=aea +lat_1=30 +lat_2=45 +lat_0=37.5 +lon_0=15 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
 
-path_ehsa_juvenile <- "./Outputs/EHSA/EHSA_juvenile_90.rds"
-path_ehsa_adult <- "./Outputs/EHSA/EHSA_adult_90.rds"
+path_ehsa_juvenile <- "./Outputs/EHSA/EHSA_juvenile.rds"
+path_ehsa_adult <- "./Outputs/EHSA/EHSA_adult.rds"
 
 ehsa_juvenile_90 <- readRDS(path_ehsa_juvenile)
 ehsa_adult_90 <- readRDS(path_ehsa_adult)
@@ -255,13 +261,13 @@ combined_crosstab_plot <- combined_crosstab_plot +
 # Sen's slope magnitude bins, by hotspot/coldspot sub-category and stage
 # -----------------------------------------------------------------------------
 
-adult_slope_breaks <- c(-Inf, -193, -103, -54, -32, -16, -7, -2, 0, 7, Inf)
-adult_slope_labels <- c("< -193", "[-193;-103[", "[-103;-54[", "[-54;-32[", "[-32;-16[",
-  "[-16;-7[", "[-7;-2[", "[-2;0[", "[0;+7[", "> +7")
+adult_slope_breaks <- c(-Inf, -142, -112, -59, -37, -21, -11, -5, 0, 7, Inf)
+adult_slope_labels <- c("< -142", "[-142;-112[", "[-112;-59[", "[-59;-37[", "[-37;-21[",
+  "[-21;-11[", "[-11;-5[", "[-5;0[", "[0;+7[", "> +7")
 
-juvenile_slope_breaks <- c(-Inf, -35, -16, -10, -6, -3, 0, 1, 2, 4, Inf)
-juvenile_slope_labels <- c("< -35", "[-35;-16[", "[-16;-10[", "[-10;-6[", "[-6;-3[",
-  "[-3;0[", "[0;+1[", "[+1;+2[", "[+2;+4[", "> +4")
+juvenile_slope_breaks <- c(-Inf, -16, -10, -7, -4, -1, 0, 1, 2, 4, Inf)
+juvenile_slope_labels <- c("< -16", "[-16;-10[", "[-10;-7[", "[-7;-4[", "[-4;-1[",
+  "[-1;0[", "[0;+1[", "[+1;+2[", "[+2;+4[", "> +4")
 
 bin_slope_values <- function(slope_df, breaks, labels) {
   slope_df %>%
@@ -360,6 +366,7 @@ combined_slope_bin_plot_adult <- (hotspot_slope_bin_barplot_adult + coldspot_slo
   plot_annotation(tag_levels = "A") &
   theme(plot.tag = element_text(size = 16, face = "bold"))
 
+# Save
 # ggplot2::ggsave(combined_slope_bin_plot_adult, filename = "./Figures/EHSA_Sen_slope_bin_crosstab_adult.png", width = 26, height = 25, units = "cm", dpi = 400)
 
 combined_slope_bin_plot_juvenile <- (hotspot_slope_bin_barplot_juvenile + coldspot_slope_bin_barplot_juvenile) +
@@ -369,5 +376,6 @@ combined_slope_bin_plot_juvenile <- (hotspot_slope_bin_barplot_juvenile + coldsp
   plot_annotation(tag_levels = "A") &
   theme(plot.tag = element_text(size = 16, face = "bold"))
 
+# Save
 # ggplot2::ggsave(combined_slope_bin_plot_juvenile, filename = "./Figures/EHSA_Sen_slope_bin_crosstab_juvenile.png", width = 26, height = 25, units = "cm", dpi = 400)
 
