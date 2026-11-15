@@ -1,0 +1,12 @@
+"set","group","area_km2","Unprotected","Minimally","Lightly","Highly","Fully","Any_protection","Highly_or_fully"
+"Juveniles","Juvenile coldspot",72297,78.54,16.36,3.96,1.13,0.01,21.46,1.14
+"Juveniles","Juvenile hotspot",83462,63.97,28.53,6.18,1.26,0.06,36.03,1.32
+"Juveniles","Juvenile no pattern",25459,64.48,29.22,4.42,1.82,0.05,35.52,1.87
+"Adults","Adult coldspot",89037,69.68,25.13,3.55,1.62,0.01,30.32,1.63
+"Adults","Adult hotspot",63917,71.93,19.74,7.26,0.99,0.08,28.07,1.07
+"Adults","Adult no pattern",28264,65.73,28.61,4.71,0.92,0.03,34.27,0.95
+"Juveniles x adults","Adult-only hotspot",21561,79.47,16.91,3.23,0.35,0.04,20.53,0.39
+"Juveniles x adults","Congruent hotspot",42356,68.09,21.18,9.32,1.31,0.1,31.91,1.41
+"Juveniles x adults","Juvenile-only hotspot",41106,59.73,36.11,2.94,1.21,0.02,40.27,1.23
+"Juveniles x adults","Not a hotspot for either stage",76195,73.58,20.5,4.32,1.59,0.02,26.42,1.61
+"Study area","Study area",181219,69.86,23.77,5.04,1.29,0.04,30.14,1.33
