@@ -3,7 +3,7 @@
 
 Open-science code and data to model, map, and analyze biodiversity-based Essential Fish Habitats (EFHs) across the Western Mediterranean Sea using hierarchical joint species distribution models (HMSC) and hurdle models, followed by spatio-temporal prediction, hotspot analysis and MPA coverage assessment.
 
-All figures can be regenerated directly from the provided outputs (once the hurdle stack is downloaded from Zenodo), without rerunning scripts 1–5.
+All figures can be regenerated directly from the provided outputs (once the hurdle stack is downloaded from Zenodo), without rerunning scripts 1-5.
 
 ## Purpose ![target](https://img.shields.io/badge/-purpose-37474f?style=flat-square)
 - Quantify species distributions and abundances with HMSC (presence/absence and abundance components).
@@ -11,13 +11,13 @@ All figures can be regenerated directly from the provided outputs (once the hurd
 - Identify emerging hotspots/coldspots and evaluate marine protected area (MPA) coverage of EFH patterns.
 
 ## Methods and Workflow ![workflow](https://img.shields.io/badge/-workflow-00695c?style=flat-square)
-1. **Model specification**: Assemble inputs and define HMSC models ([1-Define HMSC models.r](1-Define%20HMSC%20models.r)).
+1. **Model specification**: Assemble inputs and define HMSC models ([1-Define HMSC models.r](1-Define%20HMSC%20models.r)); covariate collinearity is screened beforehand with [Collinearity_screening.R](Collinearity_screening.R).
 2. **Model fitting**: Fit presence/absence and abundance models (supports HPC workflows) ([2_1-Fit presence absence model.r](2_1-Fit%20presence%20absence%20model.r), [2_2-Fit abundance model.r](2_2-Fit%20abundance%20model.r)); Slurm job scripts for cluster runs are available in [Models/](Models).
 3. **Diagnostics**: Assess convergence, effective sample sizes, and PSRF ([3-Models convergence and fit.r](3-Models%20convergence%20and%20fit.r)).
 4. **Spatial predictions**: Generate posterior samples and means over the spatial grid ([4-Spatial predictions with fitted HMSC.r](4-Spatial%20predictions%20with%20fitted%20HMSC.r)).
-5. **Extrapolation assessment**: Compute Multivariate Environmental Similarity Surfaces (MESS) to identify where spatial predictions extrapolate beyond the environmental/anthropogenic conditions used to fit both HMSC models ([Multivariate Environmental Similarity Surfaces.R](Multivariate%20Environmental%20Similarity%20Surfaces.R)).
+5. **Extrapolation assessment**: Use the [`dsmextra`](https://densitymodelling.github.io/dsmextra/articles/dsmextra.html) package to quantify analogue conditions, and univariate/combinatorial extrapolation, identifying where spatial predictions extrapolate beyond the environmental/anthropogenic conditions used to fit both HMSC models, and summarize/plot extrapolation risk ([Extrapolation_analysis.R](Extrapolation_analysis.R)).
 6. **Hurdle outputs**: Combine presence/absence and abundance to produce hurdle predictions and derived rasters ([5-Hurdle model predictions.r](5-Hurdle%20model%20predictions.r)).
-7. **Hotspot analysis**: Emerging Hotspot Analysis (EHSA) and visualization scripts ([6-Emerging Hotspot Analysis.r](6-Emerging%20Hotspot%20Analysis.r), [Figure_3_4.r](Figure_3_4.r), [Figure_5_6.r](Figure_5_6.r)).
+7. **Hotspot analysis**: Emerging Hotspot Analysis (EHSA) and visualization scripts ([6-Emerging Hotspot Analysis.r](6-Emerging%20Hotspot%20Analysis.r), [Figure_3_4.r](Figure_3_4.r), [Figure_5_6.r](Figure_5_6.r)); results can be explored interactively with the [EHSA GIS viewer](Outputs/EHSA/EHSA_GIS_viewer.html).
 8. **MPA coverage**: Quantify overlap of hotspot classes with marine protected areas ([Figure_7.r](Figure_7.r)).
 9. **Trend/hotspot cross-tabulation**: Cross-tabulate EHSA classes (hotspot/coldspot/no pattern) against Sen's slope trend significance of hurdle-model abundance, by life stage ([Figure_S_EHSA_Sen_slope_crosstab.r](Figure_S_EHSA_Sen_slope_crosstab.r)).
 
@@ -32,7 +32,11 @@ All figures can be regenerated directly from the provided outputs (once the hurd
 - Posterior samples and means for presence/absence and abundance: [Outputs/Presence_Absence_posteriors/](Outputs/Presence_Absence_posteriors), [Outputs/Abundance_posteriors/](Outputs/Abundance_posteriors), [Outputs/Presence_Absence_mean_posterior/](Outputs/Presence_Absence_mean_posterior), [Outputs/Abundance_mean_posterior/](Outputs/Abundance_mean_posterior). Full posterior outputs are several hundred GB and not hosted on Zenodo; they can be requested from [AUTHOR_NAME].
 - Hurdle predictions (combined): [Outputs/Hurdle_prediction/](Outputs/Hurdle_prediction). These combined hurdle outputs are large and not mirrored on Zenodo; contact [AUTHOR_NAME] if you need access.
 - Spatio-temporal hurdle stack: [Outputs/Spatio_temporal_prediction/](Outputs/Spatio_temporal_prediction). Source data are hosted on Zenodo (see the hurdle prediction stack entry above).
-- EHSA results: [Outputs/EHSA/](Outputs/EHSA).
+- EHSA results: [Outputs/EHSA/](Outputs/EHSA) (RDS/CSV outputs, GeoPackage exports and an interactive GIS viewer `EHSA_GIS_viewer.html`).
+- Collinearity screening results: [Outputs/Collinearity/](Outputs/Collinearity).
+- Extrapolation diagnostics: [Outputs/Extrapolation/](Outputs/Extrapolation) (incl. [Figures/](Outputs/Extrapolation/Figures)).
+- MPA overlap summaries: `Outputs/MPA_overlap_by_life_stage.RDS`/`.csv`.
+- Variance partitioning: `Outputs/VP_all.csv`.
 - Figures and supplementary plots: [Figures/](Figures).
 
 ## Installation and Environment ![setup](https://img.shields.io/badge/-setup-546e7a?style=flat-square)
@@ -85,13 +89,18 @@ If `zenodor` is absent, it is pulled via `remotes::install_github("FRBCesab/zeno
 - [2_1-Fit presence absence model.r](2_1-Fit%20presence%20absence%20model.r), [2_2-Fit abundance model.r](2_2-Fit%20abundance%20model.r): Model fitting workflows.
 - [3-Models convergence and fit.r](3-Models%20convergence%20and%20fit.r): Diagnostics.
 - [4-Spatial predictions with fitted HMSC.r](4-Spatial%20predictions%20with%20fitted%20HMSC.r): Spatial posterior predictions.
-- [Multivariate Environmental Similarity Surfaces.R](Multivariate%20Environmental%20Similarity%20Surfaces.R): MESS extrapolation diagnostics.
 - [5-Hurdle model predictions.r](5-Hurdle%20model%20predictions.r): Combine components into hurdle outputs.
 - [6-Emerging Hotspot Analysis.r](6-Emerging%20Hotspot%20Analysis.r): Emerging Hotspot Analysis workflow.
 - Figure-generation scripts: all [Figure_*.r](Figure_1.r) scripts in the repository root (including main and supplementary figures; e.g., [Figure_7.r](Figure_7.r), [Figure_S8_S9.r](Figure_S8_S9.r), [Figure_S_EHSA_Sen_slope_crosstab.r](Figure_S_EHSA_Sen_slope_crosstab.r)).
 - [:file\_folder: **Inputs_HMSC**](Inputs_HMSC/): Input data and spatial layers.
 - [:file\_folder: **Models**](Models/): Fitted model objects and initialization files.
-- [:file\_folder: **Outputs**](Outputs/): Generated predictions, EHSA results, and hurdle outputs (git-ignored intermediates where appropriate).
+- [:file\_folder: **Outputs**](Outputs/): Generated predictions and derived results.
+  - [Collinearity/](Outputs/Collinearity): VIF and substrate association screening outputs.
+  - [Extrapolation/](Outputs/Extrapolation): Extrapolation diagnostics and figures.
+  - [EHSA/](Outputs/EHSA): Emerging Hotspot Analysis results, GeoPackage exports and the interactive GIS viewer.
+  - [Hurdle_prediction/](Outputs/Hurdle_prediction), [Spatio_temporal_prediction/](Outputs/Spatio_temporal_prediction): Combined hurdle-model predictions.
+  - [Presence_Absence_posteriors/](Outputs/Presence_Absence_posteriors), [Abundance_posteriors/](Outputs/Abundance_posteriors), [Presence_Absence_mean_posterior/](Outputs/Presence_Absence_mean_posterior), [Abundance_mean_posterior/](Outputs/Abundance_mean_posterior): HMSC posterior outputs.
+  - `MPA_overlap_by_life_stage.RDS`/`.csv`, `VP_all.csv`: MPA coverage and variance partitioning summaries.
 
 ## Citation ![cite](https://img.shields.io/badge/-cite-4e342e?style=flat-square)
 If you use this code or data, please cite:
