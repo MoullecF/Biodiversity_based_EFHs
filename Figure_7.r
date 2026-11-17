@@ -235,7 +235,7 @@ hotspots_long <- hotspots %>%
     cols = c(all_of(protctn_cols), unprotected),
     names_to = "category",
     values_to = "proportion") %>%
-  mutate(category = recode(category, "unprotected" = "Unprotected"),
+  mutate(category = dplyr::recode_values(category, "unprotected" ~ "Unprotected", default = category),
     proportion = pmax(proportion, 0, na.rm = TRUE)) %>% # Clamp negatives to 0
   st_transform(4326)  # WGS84 for display
  
@@ -255,7 +255,7 @@ hotspots_dominant <- hotspots %>%
     max_cover = pmax(!!!syms(dominant_cols), na.rm = TRUE),
     # Pick the first column that attains the row max
     dominant = dominant_priority[max.col(as.matrix(st_drop_geometry(pick(all_of(dominant_priority)))) == max_cover, ties.method = "first")],
-    dominant = recode(dominant, "unprotected" = "Unprotected"),
+    dominant = dplyr::recode_values(dominant, "unprotected" ~ "Unprotected", default = dominant),
     dominant = factor(dominant, levels = protection_levels)) %>%
   st_transform(4326)
  
@@ -291,7 +291,7 @@ dominant_map <- ggplot() +
   geom_sf(data = hotspots_dominant, aes(fill = dominant), color = NA, linewidth = 0.05) +
   geom_sf(data = legend_dummy_dominant, aes(fill = dominant), alpha = 0, show.legend = TRUE) +
   geom_sf(data = world, fill = "grey90", color = "grey20") +
-  coord_sf(xlim = c(st_bbox(hotspots_long)[1] - 0.1, st_bbox(hotspots_long)[3] + 0.15), ylim = c(st_bbox(hotspots_long)[2] - 0.1, st_bbox(hotspots_long)[4] + 0.15), expand = FALSE) +
+  coord_sf(xlim = c(st_bbox(hotspots_long)[1] - 0.1, st_bbox(hotspots_long)[3] + 0.15), ylim = c(st_bbox(hotspots_long)[2] - 0.1, st_bbox(hotspots_long)[4] + 0.4), expand = FALSE) +
   scale_fill_manual(values = dominant_palette_ordered, breaks = dominant_levels, limits = dominant_levels, drop = FALSE, name = "Dominant protection (highest % of grid cell)", guide = guide_legend(override.aes = list(alpha = 1))) +
   labs(x = "Longitude", y = "Latitude") +
   theme(
