@@ -41,14 +41,13 @@ cfg <- list(
   # Each entry is a layer spec consumed by build_overlay() in section 6.
   # Leave `path = NULL` to register a placeholder layer with no data yet.
   input_files = list(
-    combined_hs_cs = "./Outputs/EHSA/Combined_HS_CS.RDS",
-    ehsa_adult     = "./Outputs/EHSA/EHSA_adult_90.rds",
-    ehsa_juvenile  = "./Outputs/EHSA/EHSA_juvenile_90.rds",
-    extrapolation_risk = "./Outputs/Extrapolation/extrapolation_risk.rds"
+    combined_hs_cs = "../Outputs/EHSA/Combined_HS_CS.RDS",
+    ehsa_adult     = "../Outputs/EHSA/EHSA_adult.rds",
+    ehsa_juvenile  = "../Outputs/EHSA/EHSA_juvenile.rds"
   ),
 
   # Output HTML path
-  output_html = "./Outputs/EHSA/EHSA_GIS_viewer.html",
+  output_html = "../Outputs/EHSA/EHSA_GIS_viewer.html",
   html_title  = "EHSA Hotspot/Coldspot Interactive GIS Viewer - Western & Central Mediterranean",
 
   # Target CRS for all layers (leaflet requires EPSG:4326 / longlat)
@@ -128,30 +127,6 @@ prepare_sf <- function(x, label, target_crs, simplify_tolerance = NULL) {
 
   message("[", label, "] Ready: ", nrow(x), "/", n0, " features retained.")
   x
-}
-
-# Converts a POINT sf grid into square POLYGON cells of the given cell size
-# (degrees, since data is in longlat), centred on each point -- used for grids
-# supplied as point centroids (e.g. extrapolation_risk) so they can be drawn
-# with addPolygons() like the other overlay layers.
-points_to_grid_cells <- function(x, cell_size, label) {
-  if (is.null(x)) return(NULL)
-  coords <- sf::st_coordinates(x)
-  half <- cell_size / 2
-  cells <- lapply(seq_len(nrow(x)), function(i) {
-    cx <- coords[i, 1]; cy <- coords[i, 2]
-    sf::st_polygon(list(matrix(
-      c(cx - half, cy - half,
-        cx + half, cy - half,
-        cx + half, cy + half,
-        cx - half, cy + half,
-        cx - half, cy - half),
-      ncol = 2, byrow = TRUE
-    )))
-  })
-  out <- sf::st_sf(sf::st_drop_geometry(x), geometry = sf::st_sfc(cells, crs = sf::st_crs(x)))
-  message("[", label, "] Converted ", nrow(out), " point(s) to ", cell_size, "-degree square cells.")
-  out
 }
 
 # ==============================================================================
@@ -245,7 +220,7 @@ build_popups <- function(df, popup_attrs = NULL) {
 overlay_specs <- list()
 
 # ==============================================================================
-# Real data layers (Combined_HS_CS, EHSA_adult_90, EHSA_juvenile_90)
+# Real data layers (Combined_HS_CS, EHSA_adult, EHSA_juvenile)
 # Palettes reproduced from Figure_5_6.r (combined hotspot/coldspot gradients)
 # and Figure_3_4.R (adult/juvenile EHSA classification palette).
 # ==============================================================================
@@ -261,7 +236,7 @@ expand_hs_cs_labels <- function(x) {
   x <- gsub("A\\.", "Adu.", x)
   abbr_map <- c(
     "Int" = "Intensifying", "Per" = "Persistent", "Spo" = "Sporadic",
-    "Con" = "Consecutive",  "dim" = "Diminishing"
+    "Con" = "Consecutive",  "Dim" = "Diminishing"
   )
   for (abbr in names(abbr_map)) {
     x <- gsub(paste0("(Juv\\.|Adu\\.)", abbr, "\\b"),
@@ -271,13 +246,12 @@ expand_hs_cs_labels <- function(x) {
 }
 
 hs_legend_col <- c(
-  "J.Int - A.Int" = hs_palette_base[13], "J.Int - A.Per" = hs_palette_base[12],
-  "J.Int - A.Spo" = hs_palette_base[11], "J.Per - A.Int" = hs_palette_base[10],
-  "J.Per - A.Per" = hs_palette_base[9],  "J.Per - A.Spo" = hs_palette_base[8],
-  "J.dim - A.Spo" = hs_palette_base[7],  "J.Spo - A.Int" = hs_palette_base[6],
-  "J.Spo - A.Per" = hs_palette_base[5],  "J.Spo - A.Spo" = hs_palette_base[4],
-  "J.Con - A.Per" = hs_palette_base[3],  "J.New - A.Int" = hs_palette_base[2],
-  "J.New - A.Spo" = hs_palette_base[1]
+  "J.Int - A.Int" = hs_palette_base[12], "J.Int - A.Per" = hs_palette_base[11],
+  "J.Int - A.Spo" = hs_palette_base[10], "J.Per - A.Int" = hs_palette_base[9],
+  "J.Per - A.Per" = hs_palette_base[8],  "J.Per - A.Spo" = hs_palette_base[7],
+  "J.Dim - A.Per" = hs_palette_base[6],  "J.Dim - A.Spo" = hs_palette_base[5],
+  "J.Spo - A.Int" = hs_palette_base[4],  "J.Spo - A.Per" = hs_palette_base[3],
+  "J.Spo - A.Spo" = hs_palette_base[2],  "J.New - A.Int" = hs_palette_base[1]
 )
 
 cs_legend_col <- c(
@@ -299,7 +273,7 @@ names(hs_legend_col) <- expand_hs_cs_labels(names(hs_legend_col))
 names(cs_legend_col) <- expand_hs_cs_labels(names(cs_legend_col))
 combined_legend_col <- c(hs_legend_col, cs_legend_col)
 
-# --- Figure 3/4 palette (EHSA_adult_90 / EHSA_juvenile_90) ------------------
+# --- Figure 3/4 palette (EHSA_adult / EHSA_juvenile) ------------------------
 palette_ehsa <- c(
   "intensifying hotspot" = "#003c30", "persistent hotspot" = "#005F56",
   "diminishing hotspot" = "#23867E",  "sporadic hotspot" = "#5AB2A8",
@@ -313,7 +287,6 @@ palette_ehsa <- c(
 data_combined <- load_sf_safely(cfg$input_files$combined_hs_cs, "combined_hs_cs")
 data_adult    <- load_sf_safely(cfg$input_files$ehsa_adult, "ehsa_adult")
 data_juvenile <- load_sf_safely(cfg$input_files$ehsa_juvenile, "ehsa_juvenile")
-data_extrapolation_risk <- load_sf_safely(cfg$input_files$extrapolation_risk, "extrapolation_risk")
 
 data_combined <- prepare_sf(data_combined, "combined_hs_cs", cfg$target_crs, cfg$simplify_tolerance)
 # Keep only the attributes needed for the combined layer, with clearer names.
@@ -331,16 +304,6 @@ if (!is.null(data_adult))    data_adult    <- data_adult[, "classification"]
 if (!is.null(data_juvenile)) data_juvenile <- data_juvenile[, "classification"]
 if (!is.null(data_adult))    names(data_adult)[names(data_adult) == "classification"]       <- "Classification"
 if (!is.null(data_juvenile)) names(data_juvenile)[names(data_juvenile) == "classification"]  <- "Classification"
-data_extrapolation_risk <- prepare_sf(data_extrapolation_risk, "extrapolation_risk", cfg$target_crs, cfg$simplify_tolerance)
-# Source data is a point grid (0.05-degree spacing) -- convert to square
-# polygon cells so it renders with the same addPolygons() pipeline as the
-# other overlay layers.
-data_extrapolation_risk <- points_to_grid_cells(data_extrapolation_risk, 0.05, "extrapolation_risk")
-# Zero means "no extrapolation risk assessed" rather than a real risk value --
-# treat as missing so it is excluded from the colour scale and rendered as NA.
-if (!is.null(data_extrapolation_risk)) {
-  data_extrapolation_risk$risk[data_extrapolation_risk$risk == 0] <- NA
-}
 
 # Classes present in the data but absent from the Figure 5/6 palette fall back to grey.
 # Classification is a factor with unused levels (29 total, fewer observed) -- coerce to
@@ -376,7 +339,7 @@ if (!is.null(data_juvenile)) data_juvenile$Classification <- as.character(data_j
 
 # --- Marine protected areas (protection levels, minimally -> fully) ---------
 mpa_polygons <- sf::st_read(
-  "./Inputs_HMSC/protectionPLactivities_niv1&2&3&4/protectionPLactivities_niv1&2&3&4.shp",
+  "../Inputs_HMSC/protectionPLactivities_niv1&2&3&4/protectionPLactivities_niv1&2&3&4.shp",
   quiet = TRUE
 )
 # Fix any invalid geometries (self-intersections, etc.).
@@ -439,18 +402,6 @@ real_specs <- list(
     opacity      = 0.75
   ),
   list(
-    id           = "extrapolation_risk",
-    label        = "Extrapolation risk",
-    data         = data_extrapolation_risk,
-    fill_attr    = "risk",
-    palette      = c("white", "red"),
-    popup_attrs  = NULL,
-    legend_title = "Extrapolation risk",
-    default_on   = FALSE,
-    border_color = "transparent",
-    opacity      = 0.75
-  ),
-  list(
     id           = "mpa_polygons",
     label        = "Protection level",
     data         = mpa_polygons,
@@ -496,9 +447,7 @@ add_overlay_layer <- function(map, spec) {
     values <- df[[spec$fill_attr]]
     pal_fun <- colorNumeric(palette = spec$palette, domain = values, na.color = "transparent")
     fill_colors <- pal_fun(values)
-    # Zero (no extrapolation risk) is fully transparent; other cells use the
-    # layer's configured opacity.
-    fill_opacity <- ifelse(is.na(values) | values == 0, 0, spec$opacity)
+    fill_opacity <- ifelse(is.na(values), 0, spec$opacity)
   } else if (!is.null(spec$fill_attr)) {
     if (!spec$fill_attr %in% names(df)) {
       stop("[", spec$id, "] fill_attr '", spec$fill_attr, "' not found in data columns: ",
@@ -641,8 +590,8 @@ configure_legends_and_opacity <- function(map, specs, bbox, category_legend_data
   # Labels of the layers that got a plain addLegend() (numeric fill with data),
   # in the order the legends were added to the map. Used in JS to tag each
   # addLegend() legend with ITS OWN layer (previously they were matched to
-  # overlayLabels by position, which attached e.g. the 'Extrapolation risk'
-  # legend to the first overlay).
+  # overlayLabels by position, which could attach the wrong legend to the
+  # wrong overlay).
   has_numeric_legend <- vapply(specs, function(s) {
     !is.null(s$data) && nrow(s$data) > 0 && !is.null(s$fill_attr) &&
       s$fill_attr %in% names(s$data) && is.numeric(s$data[[s$fill_attr]])
@@ -735,7 +684,7 @@ configure_legends_and_opacity <- function(map, specs, bbox, category_legend_data
         // the group is visible or not -- so the opacity sliders also apply to
         // layers that are currently switched off and to unchecked categories.
         // Features drawn fully transparent on purpose (fillOpacity 0, i.e.
-        // zero/NA extrapolation risk) are left out so they stay transparent.
+        // NA values on numeric-fill layers) are left out so they stay transparent.
         var allGroupLayers = {};
         overlayLabels.forEach(function(name) {
           var grp = getGroupContainer(name);
@@ -911,7 +860,7 @@ message("GIS viewer saved to: ", cfg$output_html)
 # How to add a new overlay layer later
 #
 # 1. Load your spatial object as an sf polygon layer, e.g.:
-#      my_layer <- readRDS("./Inputs/my_new_layer.rds")
+#      my_layer <- readRDS("../Inputs/my_new_layer.rds")
 #
 # 2. Prepare it (CRS check/transform, validity, optional simplification):
 #      my_layer <- prepare_sf(my_layer, "my_layer", cfg$target_crs)

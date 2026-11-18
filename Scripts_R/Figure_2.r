@@ -7,18 +7,18 @@
 # -----------------------------------------------------------------------------
 
 rm(list = ls())
-source("./0-Load libraries.R")
-source("./ggplot_theme.R")
+source("Scripts_R/0-Load libraries.R")
+source("Scripts_R/ggplot_theme.R")
 
 # -----------------------------------------------------------------------------
 # Data preparation
 # -----------------------------------------------------------------------------
 
 # Load raster stack of hurdle-model outputs (species, stage, year)
-hurdle_stack <- get(load("./Outputs/Spatio_temporal_prediction/r_stack_Hurdle_0.05_0_1000_19992021.Rdata"))
+hurdle_stack <- get(load("../Outputs/Spatio_temporal_prediction/r_stack_Hurdle_0.05_0_1000_19992021.Rdata"))
 
 # Load depth mask
-depth_mask <- readRDS("./Inputs_HMSC/depth_mask.RDS")
+depth_mask <- readRDS("../Inputs_HMSC/depth_mask.RDS")
 
 # Apply depth mask to hurdle stack (to remove potential extrapolation beyond depth range)
 hurdle_stack <- mask(hurdle_stack, depth_mask)
@@ -209,5 +209,5 @@ combined_plot <- (juvenile_plot + adult_plot) +
 # Save figure
 # -----------------------------------------------------------------------------
 
-output_file <- "./Figures/Figure_2.png"
+output_file <- "../Figures/Figure_2.png"
 # ggplot2::ggsave(filename = output_file, plot = combined_plot, width = 21, height = 30, units = "cm", dpi = 600)

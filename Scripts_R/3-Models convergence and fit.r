@@ -3,13 +3,13 @@
 # ------------------------------------------------------------------------------
 
 # Load libraries and reset workspace
-source("./0-Load libraries.R")
+source("Scripts_R/0-Load libraries.R")
 rm(list = ls())
 
 ### Check MCMC convergence diagnostics
 # convert models to coda object
-mPA <- get(load("./Models/model_mpa_thin_4000_samples_250_chains_4.RData"))
-mABU <- get(load("./Models/model_abu_thin_4000_samples_250_chains_4.RData"))
+mPA <- get(load("../Models/model_mpa_thin_4000_samples_250_chains_4.RData"))
+mABU <- get(load("../Models/model_abu_thin_4000_samples_250_chains_4.RData"))
 
 mpost_PA <- convertToCodaObject(mPA)
 mpost_ABU <- convertToCodaObject(mABU)

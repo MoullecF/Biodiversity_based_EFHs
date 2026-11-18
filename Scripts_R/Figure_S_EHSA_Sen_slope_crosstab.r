@@ -7,17 +7,17 @@
 # -----------------------------------------------------------------------------
 
 rm(list = ls())
-source("./0-Load libraries.R")
-source("./ggplot_theme.R")
+source("Scripts_R/0-Load libraries.R")
+source("Scripts_R/ggplot_theme.R")
 
 # -----------------------------------------------------------------------------
 # Load and prepare hurdle-model raster stack
 # -----------------------------------------------------------------------------
 
-hurdle_stack <- get(load("./Outputs/Spatio_temporal_prediction/r_stack_Hurdle_0.05_0_1000_19992021.Rdata"))
+hurdle_stack <- get(load("../Outputs/Spatio_temporal_prediction/r_stack_Hurdle_0.05_0_1000_19992021.Rdata"))
 
 # Load depth mask
-depth_mask <- readRDS("./Inputs_HMSC/depth_mask.RDS")
+depth_mask <- readRDS("../Inputs_HMSC/depth_mask.RDS")
 
 # Apply depth mask to hurdle stack (to remove potential extrapolation beyond depth range)
 hurdle_stack <- mask(hurdle_stack, depth_mask)
@@ -84,8 +84,8 @@ slope_df_adult <- build_slope_df(sen_slope_adult, sen_pvalue_adult)
 # Projected CRS used for area calculations (km²), matching Figure_5_6.r.
 med_albers_crs <- "+proj=aea +lat_1=30 +lat_2=45 +lat_0=37.5 +lon_0=15 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
 
-path_ehsa_juvenile <- "./Outputs/EHSA/EHSA_juvenile.rds"
-path_ehsa_adult <- "./Outputs/EHSA/EHSA_adult.rds"
+path_ehsa_juvenile <- "../Outputs/EHSA/EHSA_juvenile.rds"
+path_ehsa_adult <- "../Outputs/EHSA/EHSA_adult.rds"
 
 ehsa_juvenile_90 <- readRDS(path_ehsa_juvenile)
 ehsa_adult_90 <- readRDS(path_ehsa_adult)
@@ -255,7 +255,7 @@ combined_crosstab_plot <- combined_crosstab_plot +
   plot_annotation(tag_levels = "A") &
   theme(plot.tag = element_text(size = 16, face = "bold"))
 
-# ggplot2::ggsave(combined_crosstab_plot, filename = "./Figures/EHSA_Sen_slope_crosstab_combined.png", width = 26, height = 20, units = "cm", dpi = 400)
+# ggplot2::ggsave(combined_crosstab_plot, filename = "../Figures/EHSA_Sen_slope_crosstab_combined.png", width = 26, height = 20, units = "cm", dpi = 400)
 
 # -----------------------------------------------------------------------------
 # Sen's slope magnitude bins, by hotspot/coldspot sub-category and stage
@@ -367,7 +367,7 @@ combined_slope_bin_plot_adult <- (hotspot_slope_bin_barplot_adult + coldspot_slo
   theme(plot.tag = element_text(size = 16, face = "bold"))
 
 # Save
-# ggplot2::ggsave(combined_slope_bin_plot_adult, filename = "./Figures/EHSA_Sen_slope_bin_crosstab_adult.png", width = 26, height = 25, units = "cm", dpi = 400)
+# ggplot2::ggsave(combined_slope_bin_plot_adult, filename = "../Figures/EHSA_Sen_slope_bin_crosstab_adult.png", width = 26, height = 25, units = "cm", dpi = 400)
 
 combined_slope_bin_plot_juvenile <- (hotspot_slope_bin_barplot_juvenile + coldspot_slope_bin_barplot_juvenile) +
   plot_layout(ncol = 1, heights = c(1, 1.2), guides = "collect") &
@@ -377,5 +377,5 @@ combined_slope_bin_plot_juvenile <- (hotspot_slope_bin_barplot_juvenile + coldsp
   theme(plot.tag = element_text(size = 16, face = "bold"))
 
 # Save
-# ggplot2::ggsave(combined_slope_bin_plot_juvenile, filename = "./Figures/EHSA_Sen_slope_bin_crosstab_juvenile.png", width = 26, height = 25, units = "cm", dpi = 400)
+# ggplot2::ggsave(combined_slope_bin_plot_juvenile, filename = "../Figures/EHSA_Sen_slope_bin_crosstab_juvenile.png", width = 26, height = 25, units = "cm", dpi = 400)
 

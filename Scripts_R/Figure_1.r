@@ -7,12 +7,12 @@
 # -----------------------------------------------------------------------------
 
 rm(list = ls())
-source("./0-Load libraries.R")
-source("ggplot_theme.R")
+source("Scripts_R/0-Load libraries.R")
+source("Scripts_R/ggplot_theme.R")
 
 # Load fitted models
-Mpa <- get(load("./Models/model_mpa_thin_4000_samples_250_chains_4.RData"))
-Mabu <- get(load("./Models/model_abu_thin_4000_samples_250_chains_4.RData"))
+Mpa <- get(load("../Models/model_mpa_thin_4000_samples_250_chains_4.RData"))
+Mabu <- get(load("../Models/model_abu_thin_4000_samples_250_chains_4.RData"))
 
 # Variable groups used in variance partitioning
 groupnames <- c("Depth", "Temperature", "Salinity", "ChlorophyllA", "Human pressure")
@@ -131,7 +131,7 @@ VP.all <- rbind(
   cbind(VP.Mabu, Model = "Abundance")
 )
 
-# write.csv(VP.all, "./Outputs/VP_all.csv", row.names = FALSE)
+# write.csv(VP.all, "../Outputs/VP_all.csv", row.names = FALSE)
 
 vpSummary.Mpa <- summarize_vp(VP.Mpa)
 vpSummary.Mabu <- summarize_vp(VP.Mabu)
@@ -165,7 +165,7 @@ gg.VP <- gg.VP.Mpa + gg.VP.Mabu + plot_layout(guides = "collect", widths = c(1, 
 # -----------------------------------------------------------------------------
 # Save plot
 # -----------------------------------------------------------------------------
-ggplot2::ggsave(gg.VP, filename = "./Figures/Figure1.png", width = 30, height = 15, units = "cm", dpi = 400)
+ggplot2::ggsave(gg.VP, filename = "../Figures/Figure1.png", width = 30, height = 15, units = "cm", dpi = 400)
 
 # -----------------------------------------------------------------------------
 # Compare juvenile and adult β estimates for species with both life stages
@@ -301,4 +301,4 @@ beta_plot_mabu <- ggplot(beta_pair_mabu, aes(x=juvenile, y=adult)) +
 
 ### Save plots
 figure_beta_comp <- beta_plot_mpa / beta_plot_mabu
-ggplot2::ggsave(figure_beta_comp, filename = "./Figures/Beta_juvenile_vs_adult.png", width = 30, height = 30, units = "cm", dpi = 400)
+ggplot2::ggsave(figure_beta_comp, filename = "../Figures/Beta_juvenile_vs_adult.png", width = 30, height = 30, units = "cm", dpi = 400)

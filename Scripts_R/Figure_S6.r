@@ -7,14 +7,14 @@
 # -----------------------------------------------------------------------------
 
 rm(list = ls())
-source("./0-Load libraries.R")
+source("Scripts_R/0-Load libraries.R")
 
 # -----------------------------------------------------------------------------
 # Load fitted models
 # -----------------------------------------------------------------------------
 
-mpa_model <- get(load("./Models/model_mpa_thin_4000_samples_250_chains_4.RData"))
-abu_model <- get(load("./Models/model_abu_thin_4000_samples_250_chains_4.RData"))
+mpa_model <- get(load("../Models/model_mpa_thin_4000_samples_250_chains_4.RData"))
+abu_model <- get(load("../Models/model_abu_thin_4000_samples_250_chains_4.RData"))
 
 # -----------------------------------------------------------------------------
 # Predicted values and model fit metrics
@@ -115,4 +115,4 @@ gg_explained_power <- ggplot(performance_plot, aes(x = variable, y = value, fill
   labs(y = "Value", x = NULL) +
   theme_bw()
 
-# ggplot2::ggsave(gg_explained_power, filename = "./Figures/Figure_S6.png", width = 30, height = 15, units = "cm", dpi = 400)
+# ggplot2::ggsave(gg_explained_power, filename = "../Figures/Figure_S6.png", width = 30, height = 15, units = "cm", dpi = 400)

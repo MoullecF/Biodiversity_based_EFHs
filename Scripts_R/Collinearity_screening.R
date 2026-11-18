@@ -15,8 +15,8 @@ library(patchwork)
 # -----------------------------------------------------------------------------
 # 0. Settings and data
 # -----------------------------------------------------------------------------
-data_file <- "./Inputs_HMSC/Old_env_dataset.RData" # Dataset including sea bottom salinity and seabed substrate. 
-out_dir   <- "./Outputs/Collinearity/"
+data_file <- "../Inputs_HMSC/Old_env_dataset.RData" # Dataset including sea bottom salinity and seabed substrate. 
+out_dir   <- "../Outputs/Collinearity/"
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 env <- get(load(data_file))
@@ -60,7 +60,7 @@ plot_cor <- function(cm, tag) {
 p_before <- plot_cor(cor_before, "A")
 p_after  <- plot_cor(cor_after,  "B")
 
- ggsave(file.path("./Figures/Correlation_matrix_before_after.png"), 
+ ggsave(file.path("../Figures/Correlation_matrix_before_after.png"), 
         p_before + p_after + plot_layout(guides = "collect"),
         width = 34, height = 15, units = "cm", dpi = 400)
 

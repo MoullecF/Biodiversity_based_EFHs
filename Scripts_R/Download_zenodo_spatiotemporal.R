@@ -17,7 +17,7 @@ library(zenodor)
 # ---- Configuration ----
 record_id <- "18632166"
 target_file_name <- "r_stack_Hurdle_0.05_0_1000_19992021.Rdata"
-target_dir <- file.path("Outputs", "Spatio_temporal_prediction")
+target_dir <- file.path("..", "Outputs", "Spatio_temporal_prediction")
 if (!dir.exists(target_dir)) {
   dir.create(target_dir, recursive = TRUE, showWarnings = FALSE)
 }

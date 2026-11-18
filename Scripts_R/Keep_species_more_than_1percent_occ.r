@@ -14,4 +14,4 @@ print(paste0("The ", N_kept_sp, " species retained account for ", round(percent_
 abu <- Y[, nocc > threshold]
 
 selected_sp <- colnames(abu)
-save(selected_sp, file = "Inputs_HMSC/selected_sp.RData")
+save(selected_sp, file = "../Inputs_HMSC/selected_sp.RData")

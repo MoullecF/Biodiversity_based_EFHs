@@ -11,7 +11,7 @@
 
 rm(list = ls())
 
-source("./0-Load libraries.R")
+source("Scripts_R/0-Load libraries.R")
 # remotes::install_github("densitymodelling/dsmextra")
 library(dsmextra)
 
@@ -20,9 +20,9 @@ library(dsmextra)
 # 0. Settings
 # -----------------------------------------------------------------------------
 
-model_file <- "./Models/model_mpa_thin_4000_samples_250_chains_4.RData"
-grid_file  <- "./Inputs_HMSC/Hindcast_Env_grid_rect0.05_WMED_0_1000.RData"
-out_dir    <- "./Outputs/Extrapolation/"
+model_file <- "../Models/model_mpa_thin_4000_samples_250_chains_4.RData"
+grid_file  <- "../Inputs_HMSC/Hindcast_Env_grid_rect0.05_WMED_0_1000.RData"
+out_dir    <- "../Outputs/Extrapolation/"
 
 years <- 1999:2021
 
@@ -45,7 +45,7 @@ cell_size <- 0.05
 # Depth mask. Only prediction cells inside the mask are kept as target data
 # depth_mask <- FALSE to run on the full grid
 apply_depth_mask <- TRUE
-mask_file <- "./Inputs_HMSC/depth_mask.RDS"
+mask_file <- "../Inputs_HMSC/depth_mask.RDS"
 
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 dir.create(file.path(out_dir, "Figures"), recursive = TRUE, showWarnings = FALSE)
