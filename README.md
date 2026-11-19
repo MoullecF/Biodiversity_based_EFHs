@@ -5,7 +5,7 @@ Open-science code and data to model, map, and analyze biodiversity-based Essenti
 
 All figures can be regenerated directly from the provided outputs (once the hurdle stack is downloaded from Zenodo), without rerunning scripts 1-5.
 
-The main spatial results can be viewed interactively at https://moullecf.github.io/Biodiversity_based_EFHs/.
+The main results are available through the [interactive map](https://moullecf.github.io/Biodiversity_based_EFHs/).
 
 ## Purpose ![target](https://img.shields.io/badge/-purpose-37474f?style=flat-square)
 - Quantify species distributions and abundances with HMSC (presence/absence and abundance components).
