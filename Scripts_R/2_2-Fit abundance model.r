@@ -13,12 +13,12 @@ verbose <- 10
 transient <- ceiling(0.5*nSamples*thin)
 
 modelnames <- "normal"
-filename_abu <- paste("../Models/init_file_abu_thin_", as.character(thin), 
+filename_abu <- paste("Models/init_file_abu_thin_", as.character(thin), 
                      "_samples_", as.character(nSamples),
                      "_chains_", as.character(nChains),
                      ".rds", sep = "")
 
-load(file = "../Models/unfitted_models")
+load(file = "Models/unfitted_models")
 
 # ------------------------------------------------------------------------------
 # Create initialization object for HPC cluster
@@ -57,7 +57,7 @@ saveRDS(to_json(init_obj_abu), file = init_file_path)
 
 chainList <- vector("list", nChains)
 for(cInd in 1:nChains){
-  chain_file_path <- file.path(paste("../Models/abu", "_thin_", as.character(thin), "_samples_", as.character(nSamples), "_chains_", as.character(nChains), "_post_chain0", cInd-1, "_file.rds", sep = ""))
+  chain_file_path <- file.path(paste("Models/abu", "_thin_", as.character(thin), "_samples_", as.character(nSamples), "_chains_", as.character(nChains), "_post_chain0", cInd-1, "_file.rds", sep = ""))
   chainList[[cInd]] <- from_json(readRDS(file = chain_file_path)[[1]])[[1]]
 }
 
@@ -68,7 +68,7 @@ fitSepTF_abu <- importPosteriorFromHPC(models[[2]], chainList, nSamples, thin, t
 # Save posterior samples
 # ------------------------------------------------------------------------------
 
-filename <- paste("../Models/model_abu_thin_", as.character(thin),
+filename <- paste("Models/model_abu_thin_", as.character(thin),
                  "_samples_", as.character(nSamples),
                  "_chains_", as.character(nChains),
                  ".RData", sep = "")

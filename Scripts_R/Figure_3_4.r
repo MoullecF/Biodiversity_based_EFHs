@@ -15,8 +15,8 @@ source("Scripts_R/ggplot_theme.R")
 # Load and order EHSA outputs
 # -----------------------------------------------------------------------------
 
-ehsa_juvenile_90 <- readRDS("../Outputs/EHSA/EHSA_juvenile.rds")
-ehsa_adult_90 <- readRDS("../Outputs/EHSA/EHSA_adult.rds")
+ehsa_juvenile_90 <- readRDS("Outputs/EHSA/EHSA_juvenile.rds")
+ehsa_adult_90 <- readRDS("Outputs/EHSA/EHSA_adult.rds")
 
 classification_order <- c(
   "intensifying hotspot",
@@ -110,7 +110,7 @@ map_ehsa <- ehsa_juv_90 / ehsa_adu_90 +
   theme(legend.position = "right")
 
 # Save
-# ggplot2::ggsave(map_ehsa, filename = "../Figures/Figure_3.png", width = 20, height = 15, units = "cm", dpi = 400)
+# ggplot2::ggsave(map_ehsa, filename = "Figures/Figure_3.png", width = 20, height = 15, units = "cm", dpi = 400)
 
 # -----------------------------------------------------------------------------
 # Figure 4: Surface areas by classification
@@ -260,4 +260,4 @@ gg_surf_spot <- ggplot(tab_surf, aes(x = onto, y = pct_total, fill = classificat
   theme(plot.margin = unit(c(1, 1, 1, 1), units = , "cm"), axis.text.y = element_markdown())
 
 # Save
-# ggplot2::ggsave(gg_surf_spot, filename = "../Figures/Figure_4.png", width = 20, height = 15, units = "cm", dpi = 400)
+# ggplot2::ggsave(gg_surf_spot, filename = "Figures/Figure_4.png", width = 20, height = 15, units = "cm", dpi = 400)

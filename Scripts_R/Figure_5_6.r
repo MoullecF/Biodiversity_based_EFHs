@@ -18,8 +18,8 @@ source("Scripts_R/ggplot_theme.R")
 # Projected CRS used for area calculations (km²)
 med_albers_crs <- "+proj=aea +lat_1=30 +lat_2=45 +lat_0=37.5 +lon_0=15 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
 
-path_ehsa_juvenile <- "../Outputs/EHSA/EHSA_juvenile.rds"
-path_ehsa_adult <- "../Outputs/EHSA/EHSA_adult.rds"
+path_ehsa_juvenile <- "Outputs/EHSA/EHSA_juvenile.rds"
+path_ehsa_adult <- "Outputs/EHSA/EHSA_adult.rds"
 
 ehsa_juvenile_90 <- readRDS(path_ehsa_juvenile)
 ehsa_adult_90 <- readRDS(path_ehsa_adult)
@@ -244,7 +244,7 @@ cs_df$Classification <- factor(cs_df$Classification, levels = cs_levels)
 combined_hs_cs <- bind_rows(
   hs_df %>% mutate(Spot = "Hotspots"),
   cs_df %>% mutate(Spot = "Coldspots"))
-# saveRDS(combined_hs_cs, "../Outputs/EHSA/Combined_HS_CS.RDS")
+# saveRDS(combined_hs_cs, "Outputs/EHSA/Combined_HS_CS.RDS")
 
 ## Figure 5: Hotspot and coldspot maps
 
@@ -274,7 +274,7 @@ gg.combined.spot <- ggplot(data = world) +
     legend.key.size = unit(0.5, "cm"),
     plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
-# ggplot2::ggsave(gg.combined.spot, filename = "../Figures/Figure_5.png", width = 20, height = 15, units = "cm", dpi = 400)
+# ggplot2::ggsave(gg.combined.spot, filename = "Figures/Figure_5.png", width = 20, height = 15, units = "cm", dpi = 400)
 
 ## Figure 6: barplot of hotspot and coldspot areas by combined classification
 
@@ -333,7 +333,7 @@ gg.surf <- ggplot(tab_surf) +
   guides(fill = guide_legend(ncol = 2)) +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm"))
 
-# ggplot2::ggsave(gg.surf, filename = "../Figures/Figure_6.png", width = 20, height = 15, units = "cm", dpi = 400)
+# ggplot2::ggsave(gg.surf, filename = "Figures/Figure_6.png", width = 20, height = 15, units = "cm", dpi = 400)
 
 # -----------------------------------------------------------------------------
 # Full 9-way juvenile x adult combination analysis
@@ -395,4 +395,4 @@ summary_by_combination_pattern <- areas_by_classification %>%
 print(summary_by_combination)
 print(summary_by_combination_pattern)
 
-# saveRDS(areas_by_classification, "../Outputs/EHSA/Areas_by_classification_full.RDS")
+# saveRDS(areas_by_classification, "Outputs/EHSA/Areas_by_classification_full.RDS")

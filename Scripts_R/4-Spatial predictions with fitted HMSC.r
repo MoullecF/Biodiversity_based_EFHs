@@ -20,15 +20,15 @@ Depthrange <- "0_1000"
 
 # Output directories
 dir_save_posteriors <- if (model_type == "mpa") {
-  "../Outputs/Presence_Absence_posteriors/"
+  "Outputs/Presence_Absence_posteriors/"
 } else {
-  "../Outputs/Abundance_posteriors/"
+  "Outputs/Abundance_posteriors/"
 }
 
 dir_save_mean_posterior <- if (model_type == "mpa") {
-  "../Outputs/Presence_Absence_mean_posterior/"
+  "Outputs/Presence_Absence_mean_posterior/"
 } else {
-  "../Outputs/Abundance_mean_posterior/"
+  "Outputs/Abundance_mean_posterior/"
 }
 
 dir.create(dir_save_posteriors, recursive = TRUE, showWarnings = FALSE)
@@ -39,7 +39,7 @@ dir.create(dir_save_mean_posterior, recursive = TRUE, showWarnings = FALSE)
 # ------------------------------------------------------------------------------
 
 model_file <- paste0(
-  "../Models/model_", model_type, "_thin_", thin,
+  "Models/model_", model_type, "_thin_", thin,
   "_samples_", nSamples, "_chains_", nChains, ".RData"
 )
 load(model_file)
@@ -49,7 +49,7 @@ load(model_file)
 # ------------------------------------------------------------------------------
 
 grid_env <- get(load(
-  paste0("../Inputs_HMSC/Hindcast_Env_grid_rect", SpatRes, "_WMED_", Depthrange, ".RData")
+  paste0("Inputs_HMSC/Hindcast_Env_grid_rect", SpatRes, "_WMED_", Depthrange, ".RData")
 ))
 # Drop potential duplicate rows per (X, Y, YEAR) to avoid redundant computation
 grid_env <- dplyr::distinct(grid_env, X, Y, YEAR, .keep_all = TRUE)

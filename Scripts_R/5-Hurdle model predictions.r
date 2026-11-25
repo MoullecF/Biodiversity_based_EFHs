@@ -4,7 +4,7 @@ rm(list = ls())
 gc()
 
 # Load one fitted model to get species names
-load("../Models/model_abu_thin_4000_samples_250_chains_4.RData")
+load("Models/model_abu_thin_4000_samples_250_chains_4.RData")
 sp.names <- colnames(m$Y)
 
 # Number of posterior samples
@@ -20,8 +20,8 @@ ci <- function(x, z = 1.96) {
 # Inputs and templates
 # ------------------------------------------------------------------------------
 
-list.PA <- list.files(path = "../Outputs/Presence_Absence_posteriors", full.names = TRUE)
-list.AB <- list.files(path = "../Outputs/Abundance_posteriors", full.names = TRUE)
+list.PA <- list.files(path = "Outputs/Presence_Absence_posteriors", full.names = TRUE)
+list.AB <- list.files(path = "Outputs/Abundance_posteriors", full.names = TRUE)
 
 template <- readRDS(list.PA[1])
 preds_t <- array(NA, dim = c(dim(template), length(list.PA)))
@@ -52,9 +52,9 @@ for (i in seq_along(vec_year)) {
   preds_t_sd <- apply(preds_t, c(1, 2), sd, na.rm = TRUE)
   preds_t_ci <- apply(preds_t, c(1:2), ci)
 
-  saveRDS(preds_t_mean, paste0("../Outputs/Hurdle_prediction/Mean/Mean_Pred_AB_Cond_Pres_", year, ".rds"))
-  saveRDS(preds_t_sd, paste0("../Outputs/Hurdle_prediction/SD/SD_Pred_AB_Cond_Pres_", year, ".rds"))
-  saveRDS(preds_t_ci, paste0("../Outputs/Hurdle_prediction/Ci/Ci_Pred_AB_Cond_Pres_", year, ".rds"))
+  saveRDS(preds_t_mean, paste0("Outputs/Hurdle_prediction/Mean/Mean_Pred_AB_Cond_Pres_", year, ".rds"))
+  saveRDS(preds_t_sd, paste0("Outputs/Hurdle_prediction/SD/SD_Pred_AB_Cond_Pres_", year, ".rds"))
+  saveRDS(preds_t_ci, paste0("Outputs/Hurdle_prediction/Ci/Ci_Pred_AB_Cond_Pres_", year, ".rds"))
 
   t2 <- Sys.time()
   print(t2 - t1)
@@ -67,12 +67,12 @@ for (i in seq_along(vec_year)) {
 # Spatial grid and XY coordinates
 # ------------------------------------------------------------------------------
 
-grid_env <- get(load("../Inputs_HMSC/Hindcast_Env_grid_rect0.05_WMED_0_1000.RData"))
+grid_env <- get(load("Inputs_HMSC/Hindcast_Env_grid_rect0.05_WMED_0_1000.RData"))
 # Drop potential duplicate rows per (X, Y, YEAR) to avoid redundant computation
 grid_env <- dplyr::distinct(grid_env, X, Y, YEAR, .keep_all = TRUE)
 xy <- grid_env[grid_env$YEAR == 1999, c("X", "Y")]
 
-WD_SpatialPred <- "../Outputs/Hurdle_prediction/Mean/"
+WD_SpatialPred <- "Outputs/Hurdle_prediction/Mean/"
 
 # ------------------------------------------------------------------------------
 # Build spatio-temporal raster stack from yearly predictions
@@ -110,4 +110,4 @@ for (i in 1:length(list.Pred)) {
   r.stack.year <- stack(r.stack.year, r.stack)
 }
 
-# save(r.stack.year, file = "../Outputs/Spatio_temporal_prediction/r_stack_Hurdle_0.05_0_1000_19992021.Rdata")
+# save(r.stack.year, file = "Outputs/Spatio_temporal_prediction/r_stack_Hurdle_0.05_0_1000_19992021.Rdata")

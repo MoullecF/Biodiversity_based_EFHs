@@ -57,7 +57,7 @@ cor_covariates <- ggcorrplot::ggcorrplot(cor_mat,
   colors = c("#2166AC", "white", "#B2182B")) +
   scale_fill_gradient2(low = "#2166AC", mid = "white", high = "#B2182B", midpoint = 0, limits = c(-1, 1), name = "Pearson\ncorrelation")
 
-#ggplot2::ggsave(cor_covariates, filename = "../Figures/Correlation_Matrix.png", width = 30, height = 15, units = "cm", dpi = 400)
+#ggplot2::ggsave(cor_covariates, filename = "Figures/Correlation_Matrix.png", width = 30, height = 15, units = "cm", dpi = 400)
 
 # Variance inflation factor (VIF) to check for multicollinearity
 usdm::vifstep(as.data.frame(X), th=5, size = 12648)

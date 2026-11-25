@@ -17,8 +17,8 @@ source("Scripts_R/ggplot_theme.R")
 # -----------------------------------------------------------------------------
 
 # Juvenile and adult EHSA outputs
-file_ehsa_juvenile <- "../Outputs/EHSA/EHSA_juvenile.RDS"
-file_ehsa_adult    <- "../Outputs/EHSA/EHSA_adult.RDS"
+file_ehsa_juvenile <- "Outputs/EHSA/EHSA_juvenile.RDS"
+file_ehsa_adult    <- "Outputs/EHSA/EHSA_adult.RDS"
 
 class_col <- "classification"
 protection_levels <- c("Unprotected", "Minimally", "Lightly", "Highly", "Fully")
@@ -28,7 +28,7 @@ protection_levels <- c("Unprotected", "Minimally", "Lightly", "Highly", "Fully")
 # -----------------------------------------------------------------------------
  
 # Marine protected areas with protection levels minimally --> Fully
-mpa_polygons <- st_read("../Inputs_HMSC/protectionPLactivities_niv1&2&3&4/protectionPLactivities_niv1&2&3&4.shp")
+mpa_polygons <- st_read("Inputs_HMSC/protectionPLactivities_niv1&2&3&4/protectionPLactivities_niv1&2&3&4.shp")
 mpa_polygons <- st_make_valid(mpa_polygons)
  
 # Recode numeric protection codes
@@ -60,10 +60,10 @@ map_MPA <- ggplot() +
     legend.key = element_rect(color = "white"),
     plot.margin = unit(c(0, 0, 0, 0), "pt"))
  
-# ggsave(map_MPA, filename = "../Figures/Map_MPA_protection_levels.png", width = 20, height = 20, units = "cm", dpi = 400)
+# ggsave(map_MPA, filename = "Figures/Map_MPA_protection_levels.png", width = 20, height = 20, units = "cm", dpi = 400)
  
 # Combined hotspot and coldspot EHSA outputs
-df_spots <- readRDS("../Outputs/EHSA/Combined_HS_CS.RDS")
+df_spots <- readRDS("Outputs/EHSA/Combined_HS_CS.RDS")
  
 # Align CRS for spatial operations
 df_spots <- st_transform(df_spots, st_crs(mpa_polygons))
@@ -183,8 +183,8 @@ mpa_by_group_wide <- mpa_by_group %>%
  
 print(as.data.frame(mpa_by_group_wide))
  
-# saveRDS(mpa_by_group, "../Outputs/MPA_overlap_by_life_stage.RDS")
-# write.csv(mpa_by_group_wide, "../Outputs/MPA_overlap_by_life_stage.csv", row.names = FALSE)
+# saveRDS(mpa_by_group, "Outputs/MPA_overlap_by_life_stage.RDS")
+# write.csv(mpa_by_group_wide, "Outputs/MPA_overlap_by_life_stage.csv", row.names = FALSE)
  
 # -----------------------------------------------------------------------------
 # Per-cell protection coverage
@@ -353,4 +353,4 @@ dominant_with_bar <- (dominant_map | bar_hotspots) +
     plot.margin = unit(c(0, 0, 0, 0), "pt"))
 
 # Save
-# ggplot2::ggsave(dominant_with_bar, filename = "../Figures/Figure_7.png", width = 45, height = 18, units = "cm", dpi = 400)
+# ggplot2::ggsave(dominant_with_bar, filename = "Figures/Figure_7.png", width = 45, height = 18, units = "cm", dpi = 400)

@@ -29,10 +29,10 @@ nsim <- 999
 seed <- 123
 
 # Load depth mask
-depth_mask <- readRDS("../Inputs_HMSC/depth_mask.RDS")
+depth_mask <- readRDS("Inputs_HMSC/depth_mask.RDS")
 
 # Load raster stack of hurdle-model outputs
-raster_stack <- get(load("../Outputs/Spatio_temporal_prediction/r_stack_Hurdle_0.05_0_1000_19992021.Rdata"))
+raster_stack <- get(load("Outputs/Spatio_temporal_prediction/r_stack_Hurdle_0.05_0_1000_19992021.Rdata"))
 
 # Set to c("adult") for a single run, or c("juvenile", "adult") for both
 stages_to_run <- c("juvenile", "adult")
@@ -131,7 +131,7 @@ run_ehsa <- function(stage_name, raster_stack, depth_mask, nsim = 199, seed = NU
 for (stage in stages_to_run) {
   t0 <- Sys.time()
   ehsa <- run_ehsa(stage, raster_stack, depth_mask, nsim = nsim, seed = seed)
-  output_path <- paste0("../Outputs/EHSA/ehsa_", stage, "_depth_masked.rds")
+  output_path <- paste0("Outputs/EHSA/ehsa_", stage, "_depth_masked.rds")
   saveRDS(ehsa, file = output_path)
   step_msg("Saved EHSA output to: ", output_path, " (", round(as.numeric(Sys.time() - t0, units = "mins"), 1), " min)")
 }

@@ -41,13 +41,13 @@ cfg <- list(
   # Each entry is a layer spec consumed by build_overlay() in section 6.
   # Leave `path = NULL` to register a placeholder layer with no data yet.
   input_files = list(
-    combined_hs_cs = "../Outputs/EHSA/Combined_HS_CS.RDS",
-    ehsa_adult     = "../Outputs/EHSA/EHSA_adult.rds",
-    ehsa_juvenile  = "../Outputs/EHSA/EHSA_juvenile.rds"
+    combined_hs_cs = "Outputs/EHSA/Combined_HS_CS.RDS",
+    ehsa_adult     = "Outputs/EHSA/EHSA_adult.rds",
+    ehsa_juvenile  = "Outputs/EHSA/EHSA_juvenile.rds"
   ),
 
   # Output HTML path
-  output_html = "../Outputs/EHSA/EHSA_GIS_viewer.html",
+  output_html = "Outputs/EHSA/EHSA_GIS_viewer.html",
   html_title  = "EHSA Hotspot/Coldspot Interactive GIS Viewer - Western & Central Mediterranean",
 
   # Target CRS for all layers (leaflet requires EPSG:4326 / longlat)
@@ -339,7 +339,7 @@ if (!is.null(data_juvenile)) data_juvenile$Classification <- as.character(data_j
 
 # --- Marine protected areas (protection levels, minimally -> fully) ---------
 mpa_polygons <- sf::st_read(
-  "../Inputs_HMSC/protectionPLactivities_niv1&2&3&4/protectionPLactivities_niv1&2&3&4.shp",
+  "Inputs_HMSC/protectionPLactivities_niv1&2&3&4/protectionPLactivities_niv1&2&3&4.shp",
   quiet = TRUE
 )
 # Fix any invalid geometries (self-intersections, etc.).
