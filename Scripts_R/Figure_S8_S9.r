@@ -12,8 +12,8 @@ source("Scripts_R/0-Load libraries.r")
 # Load fitted models
 # -----------------------------------------------------------------------------
 
-mpa_model <- get(load("../Models/model_mpa_thin_4000_samples_250_chains_4.RData"))
-abu_model <- get(load("../Models/model_abu_thin_4000_samples_250_chains_4.RData"))
+mpa_model <- get(load("Models/model_mpa_thin_4000_samples_250_chains_4.RData"))
+abu_model <- get(load("Models/model_abu_thin_4000_samples_250_chains_4.RData"))
 
 # -----------------------------------------------------------------------------
 # Helpers
@@ -181,7 +181,7 @@ combined_beta_plot <- heatmap_pa + heatmap_ab + plot_layout(guides = "collect", 
 
 ggplot2::ggsave(
   combined_beta_plot,
-  filename = "../Figures/Figure_S8.png",
+  filename = "Figures/Figure_S8.png",
   width = 30,
   height = 30,
   units = "cm",
@@ -192,7 +192,7 @@ combined_prop <- prop_pa + prop_ab + plot_layout(guides = "collect", widths = c(
 
 ggplot2::ggsave(
   combined_prop,
-  filename = "../Figures/Figure_S9.png",
+  filename = "Figures/Figure_S9.png",
   width = 30,
   height = 30,
   units = "cm",
