@@ -1,5 +1,5 @@
 ###############################################################################
-# Title: Model Fit Indicators by Life Stage (Figure S6)
+# Title: Model Fit Indicators by Life Stage (Figure S11)
 ###############################################################################
 
 # -----------------------------------------------------------------------------
@@ -94,7 +94,7 @@ wilcox_auc <- performance_long %>%
   wilcox.test(value ~ life_stage, data = .)
 
 # -----------------------------------------------------------------------------
-# Figure S6: Model fit indicators by life stage
+# Figure S11: Model fit indicators by life stage
 # -----------------------------------------------------------------------------
 
 metrics_to_plot <- c("AUC", "TjurR2", "R2")
@@ -115,4 +115,4 @@ gg_explained_power <- ggplot(performance_plot, aes(x = variable, y = value, fill
   labs(y = "Value", x = NULL) +
   theme_bw()
 
-# ggplot2::ggsave(gg_explained_power, filename = "Figures/Figure_S6.png", width = 30, height = 15, units = "cm", dpi = 400)
+# ggplot2::ggsave(gg_explained_power, filename = "Figures/Figure_S11.png", width = 30, height = 15, units = "cm", dpi = 400)

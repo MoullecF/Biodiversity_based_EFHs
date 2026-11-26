@@ -1,5 +1,5 @@
 ###############################################################################
-# Title: Covariate Effects and Life-Stage Responses (Figures S8–S9)
+# Title: Covariate Effects and Life-Stage Responses (Figures S14-S15)
 ###############################################################################
 
 # -----------------------------------------------------------------------------
@@ -179,25 +179,11 @@ prop_ab <- build_prop_plot(beta_ab, "Abundance conditional on presence", show_y_
 
 combined_beta_plot <- heatmap_pa + heatmap_ab + plot_layout(guides = "collect", widths = c(1, 1))
 
-ggplot2::ggsave(
-  combined_beta_plot,
-  filename = "Figures/Figure_S8.png",
-  width = 30,
-  height = 30,
-  units = "cm",
-  dpi = 400
-)
+# ggplot2::ggsave(combined_beta_plot, filename = "Figures/Figure_S14.png", width = 30, height = 30, units = "cm", dpi = 400)
 
 combined_prop <- prop_pa + prop_ab + plot_layout(guides = "collect", widths = c(1, 1))
 
-ggplot2::ggsave(
-  combined_prop,
-  filename = "Figures/Figure_S9.png",
-  width = 30,
-  height = 30,
-  units = "cm",
-  dpi = 400
-)
+# ggplot2::ggsave(combined_prop, filename = "Figures/Figure_S15.png", width = 30, height = 30, units = "cm", dpi = 400)
 
 # Proportion of species with positive, negative, or non-significant responses to a given covariate
 summarise_response <- function(df, model_label, variable) {

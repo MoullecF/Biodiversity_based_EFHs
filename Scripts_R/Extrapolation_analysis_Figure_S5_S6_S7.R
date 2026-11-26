@@ -253,23 +253,6 @@ writeLines(summary_log, file.path(out_dir, "summary_dsmextra_by_year.txt"))
 saveRDS(cells,  file.path(out_dir, "extrapolation_cells_by_year.rds"))
 saveRDS(nearby, file.path(out_dir, "nearby_cells_by_year.rds"))
 
-# Extrapolation risk across years, one value per cell
-# ExDet is averaged across all years regardless of each year's class, then
-# collapsed to a single-sided risk score: 0 for analogue cells, increasing
-# with the severity of univariate extrapolation. No combinatorial extrapolation
-# occurs in this dataset (checked above), so the score only needs the
-# univariate side; if combinatorial cells appear with a different dataset,
-# add back a max(0, mean_ExDet - 1) term.
-stopifnot(all(cells$class != "combinatorial"))
-cells_risk <- cells %>%
-  dplyr::group_by(x, y) %>%
-  dplyr::summarise(mean_ExDet = mean(ExDet), n_years_total = dplyr::n(), .groups = "drop") %>%
-  dplyr::mutate(risk = pmax(0, -mean_ExDet))
-
-cells_risk_sf <- sf::st_as_sf(cells_risk, coords = c("x", "y"), crs = my_crs, remove = FALSE)
-
-saveRDS(cells_risk_sf, file.path(out_dir, "extrapolation_risk.rds"))
-
 # -----------------------------------------------------------------------------
 # 4. Maps: one multipanel figure per map type, one panel per year
 # -----------------------------------------------------------------------------
@@ -312,6 +295,7 @@ mic_cols <- c(Depth = "#0072B2", SST = "#D55E00", SBT = "#E69F00", SSS = "#009E7
               Chla = "#56B4E9", Fishing = "#CC79A7", Gravity = "#000000")
 
 # Analogue, univariate and combinatorial extrapolation on the same map
+# Figure S5 in supplementary materials
 p1 <- ggplot() +
   geom_tile(data = filter(cells_d, class == "analogue"), aes(x, y, fill = ExDet), width = cell_size, height = cell_size) +
   scale_fill_gradient(name = "Analogue\n(ExDet 0-1)", low = "#e5f5e0", high = "#00441b", limits = c(0, 1)) +
@@ -323,42 +307,38 @@ p1 <- ggplot() +
   scale_fill_gradient(name = "Combinatorial\n(ExDet > 1)", low = "#fcbba1", high = "#99000d", limits = lim_comb) +
   map_layers()
 
-ggsave(file.path(out_dir, "Figures", "extrapolation_all_years.png"), p1, width = 38, height = 24, units = "cm", dpi = 300)
+ggsave(file.path(out_dir, "Figures", "Figure_S5.png"), p1, width = 38, height = 24, units = "cm", dpi = 300)
 
 # Most influential covariate (univariate and combinatorial cells together and analogue cells in grey)
+# Figure S6 in supplementary materials
 p2 <- ggplot() +
   geom_tile(data = filter(cells_d, class == "analogue"), aes(x, y), fill = "grey90", width = cell_size, height = cell_size) +
   geom_tile(data = filter(cells_d, class != "analogue"), aes(x, y, fill = mic_label), width = cell_size, height = cell_size) +
   scale_fill_manual(name = "Most influential\ncovariate", values = mic_cols, limits = covariates, drop = FALSE) +
   map_layers()
 
-ggsave(file.path(out_dir, "Figures", "mic_all_years.png"), p2, width = 38, height = 24, units = "cm", dpi = 300)
+ggsave(file.path(out_dir, "Figures", "Figure_S6.png"), p2, width = 38, height = 24, units = "cm", dpi = 300)
 
 # 4.3 Percentage of reference data nearby
+# Figure S7 in supplementary materials
 p3 <- ggplot() +
   geom_tile(data = nearby, aes(x, y, fill = perc_nearby), width = cell_size, height = cell_size) +
   scale_fill_viridis_c(name = "% reference\ndata nearby", limits = c(0, max(nearby$perc_nearby))) +
   map_layers()
 
-ggsave(file.path(out_dir, "Figures", "nearby_all_years.png"), p3, width = 38, height = 24, units = "cm", dpi = 300)
+ggsave(file.path(out_dir, "Figures", "Figure_S7.png"), p3, width = 38, height = 24, units = "cm", dpi = 300)
 
-# 4.4 Extrapolation risk across years
-p4 <- ggplot() +
-  geom_tile(data = cells_risk, aes(x, y, fill = risk),
-            width = cell_size, height = cell_size) +
-  scale_fill_viridis_c(name = "Extrapolation\nrisk\n(mean ExDet, 0 = analogue)") +
-  { if (!is.null(world)) geom_sf(data = world, fill = "grey80", colour = "grey30",
-                                 linewidth = 0.1) } +
-  coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-  labs(x = NULL, y = NULL, title = "Extrapolation risk across years") +
-  theme(panel.grid.major = element_blank(),
-        panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.4),
-        panel.background = element_rect(fill = "white"))
+# # 4.4 Extrapolation risk across years
+# p4 <- ggplot() +
+#   geom_tile(data = cells_risk, aes(x, y, fill = risk),
+#             width = cell_size, height = cell_size) +
+#   scale_fill_viridis_c(name = "Extrapolation\nrisk\n(mean ExDet, 0 = analogue)") +
+#   { if (!is.null(world)) geom_sf(data = world, fill = "grey80", colour = "grey30",
+#                                  linewidth = 0.1) } +
+#   coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+#   labs(x = NULL, y = NULL, title = "Extrapolation risk across years") +
+#   theme(panel.grid.major = element_blank(),
+#         panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.4),
+#         panel.background = element_rect(fill = "white"))
 
-ggsave(file.path(out_dir, "Figures", "extrapolation_risk_all_years.png"), p4, width = 20, height = 16, units = "cm", dpi = 300)
-
-# -----------------------------------------------------------------------------
-# 5. Reproducibility
-# -----------------------------------------------------------------------------
-
-writeLines(c(paste("dsmextra", as.character(packageVersion("dsmextra"))), capture.output(sessionInfo())), file.path(out_dir, "sessionInfo.txt"))
+# ggsave(file.path(out_dir, "Figures", "extrapolation_risk_all_years.png"), p4, width = 20, height = 16, units = "cm", dpi = 300)

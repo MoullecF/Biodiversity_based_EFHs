@@ -1,5 +1,5 @@
 ###############################################################################
-# Title: Figure S5 - Gamma Diagnostics (ESS + PSRF)
+# Title: Figure S10 - Gamma Diagnostics (ESS + PSRF)
 ###############################################################################
 
 # -----------------------------------------------------------------------------
@@ -22,7 +22,7 @@ mpost_ABU <- convertToCodaObject(mABU)
 # Plot: ESS and PSRF for gamma
 # -----------------------------------------------------------------------------
 
-png(filename = file.path("Figures", "Figure_S5.png"), width = 10, height = 10, units = "in", res = 400)
+png(filename = file.path("Figures", "Figure_S10.png"), width = 10, height = 10, units = "in", res = 400)
 par(mfrow = c(2, 2))
 
 hist(

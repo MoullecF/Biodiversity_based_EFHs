@@ -42,7 +42,7 @@ protection_palette <- c(
   "Highly"      = "#21918c",
   "Fully"       = "#440154")
  
-# Plot MPAs with protection levels
+# Plot MPAs with protection levels / Figure_S8 in supplementary materials
 map_MPA <- ggplot() +
   geom_sf(data = st_transform(mpa_polygons, st_crs(world)), aes(fill = protctn), color = NA) +
   geom_sf(data = world, fill = "grey90", color = "grey20") +
@@ -60,7 +60,7 @@ map_MPA <- ggplot() +
     legend.key = element_rect(color = "white"),
     plot.margin = unit(c(0, 0, 0, 0), "pt"))
  
-# ggsave(map_MPA, filename = "Figures/Map_MPA_protection_levels.png", width = 20, height = 20, units = "cm", dpi = 400)
+# ggsave(map_MPA, filename = "Figures/Figure_S8.png", width = 20, height = 20, units = "cm", dpi = 400)
  
 # Combined hotspot and coldspot EHSA outputs
 df_spots <- readRDS("Outputs/EHSA/Combined_HS_CS.RDS")

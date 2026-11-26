@@ -1,5 +1,5 @@
 ###############################################################################
-# Title: Figure S4 - Beta Diagnostics (ESS + PSRF)
+# Title: Figure S9 - Beta Diagnostics (ESS + PSRF)
 ###############################################################################
 
 # -----------------------------------------------------------------------------
@@ -22,7 +22,7 @@ mpost_ABU <- convertToCodaObject(mABU)
 # Plot: ESS and PSRF for beta
 # -----------------------------------------------------------------------------
 
-png(filename = file.path("Figures", "Figure_S4.png"), width = 10, height = 10, units = "in", res = 400)
+png(filename = file.path("Figures", "Figure_S9.png"), width = 10, height = 10, units = "in", res = 400)
 par(mfrow = c(2, 2))
 
 hist(

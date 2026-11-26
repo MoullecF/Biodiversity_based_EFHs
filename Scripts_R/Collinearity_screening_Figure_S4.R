@@ -36,6 +36,7 @@ vif_threshold <- 3
 # -----------------------------------------------------------------------------
 # 1. Pairwise Pearson correlations, before and after selection
 # -----------------------------------------------------------------------------
+# Figure S4 in supplementary materials
 
 cor_before <- cor(env[, candidates], method = "pearson", use = "pairwise.complete.obs")
 cor_after  <- cor(env[, retained],   method = "pearson", use = "pairwise.complete.obs")
@@ -60,9 +61,7 @@ plot_cor <- function(cm, tag) {
 p_before <- plot_cor(cor_before, "A")
 p_after  <- plot_cor(cor_after,  "B")
 
- ggsave(file.path("Figures/Correlation_matrix_before_after.png"), 
-        p_before + p_after + plot_layout(guides = "collect"),
-        width = 34, height = 15, units = "cm", dpi = 400)
+# ggsave(file.path("Figures/Figure_S4.png"), p_before + p_after + plot_layout(guides = "collect"), width = 34, height = 15, units = "cm", dpi = 400)
 
 # -----------------------------------------------------------------------------
 # 2. Variance Inflation Factors before and after selection

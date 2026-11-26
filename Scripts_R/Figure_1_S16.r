@@ -170,6 +170,7 @@ ggplot2::ggsave(gg.VP, filename = "Figures/Figure1.png", width = 30, height = 15
 # -----------------------------------------------------------------------------
 # Compare juvenile and adult β estimates for species with both life stages
 # -----------------------------------------------------------------------------
+# Figure S16 in supplementary materials
 library(tibble)
 
 ### Extract β posterior estimates and keep species with both stages
@@ -301,4 +302,4 @@ beta_plot_mabu <- ggplot(beta_pair_mabu, aes(x=juvenile, y=adult)) +
 
 ### Save plots
 figure_beta_comp <- beta_plot_mpa / beta_plot_mabu
-ggplot2::ggsave(figure_beta_comp, filename = "Figures/Beta_juvenile_vs_adult.png", width = 30, height = 30, units = "cm", dpi = 400)
+ggplot2::ggsave(figure_beta_comp, filename = "Figures/Figure_S16.png", width = 30, height = 30, units = "cm", dpi = 400)

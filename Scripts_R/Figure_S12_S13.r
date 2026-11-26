@@ -1,5 +1,5 @@
 ###############################################################################
-# Title: Trait Contributions to Variance Partitioning (Figure S7)
+# Title: Trait Contributions to Variance Partitioning (Figure S12)
 ###############################################################################
 
 # -----------------------------------------------------------------------------
@@ -111,11 +111,12 @@ plot_traits_abu <- ggplot(traits_beta_abu, aes(x = Variable, y = value_pct, fill
 combined_traits <- plot_traits_mpa + plot_traits_abu +
   plot_layout(guides = "collect", widths = c(1, 1))
 
-# ggplot2::ggsave(combined_traits, filename = "Figures/Figure_S7.png", width = 30, height = 30, units = "cm", dpi = 400)
+# ggplot2::ggsave(combined_traits, filename = "Figures/Figure_S12.png", width = 30, height = 30, units = "cm", dpi = 400)
 
 # -----------------------------------------------------------------------------
 # Gamma parameter heatmaps
 # -----------------------------------------------------------------------------
+# Figure S13: Gamma parameter heatmaps
 
 # Define support level
 supportLevel <- 0.95
@@ -308,4 +309,4 @@ gamma.heatmap.AB <- ggplot(temp.gamma, aes(x = Environment, y = Traits)) +
 # -----------------------------------------------------------------------------
 combined_gamma_plot <- gamma.heatmap.PA + gamma.heatmap.AB + plot_layout(guides = "collect", widths = c(1, 1))
 
-# ggplot2::ggsave(combined_gamma_plot, filename = "Figures/Figure_S7_2.png", width = 30, height = 30, units = "cm", dpi = 400)
+# ggplot2::ggsave(combined_gamma_plot, filename = "Figures/Figure_S13.png", width = 30, height = 30, units = "cm", dpi = 400)
