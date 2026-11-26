@@ -13,15 +13,15 @@ The main results are available through the [interactive map](https://moullecf.gi
 - Identify emerging hotspots/coldspots and evaluate marine protected area (MPA) coverage of EFH patterns.
 
 ## Methods and Workflow ![workflow](https://img.shields.io/badge/-workflow-00695c?style=flat-square)
-1. **Model specification**: Assemble inputs and define HMSC models ([Scripts_R/1-Define HMSC models.r](Scripts_R/1-Define%20HMSC%20models.r)); covariate collinearity is screened beforehand with [Scripts_R/Collinearity_screening.R](Scripts_R/Collinearity_screening.R).
+1. **Model specification**: Assemble inputs and define HMSC models ([Scripts_R/1-Define HMSC models.r](Scripts_R/1-Define%20HMSC%20models.r)); covariate collinearity is screened beforehand with [Scripts_R/Collinearity_screening_Figure_S4.R](Scripts_R/Collinearity_screening_Figure_S4.R).
 2. **Model fitting**: Fit presence/absence and abundance models (supports HPC workflows) ([Scripts_R/2_1-Fit presence absence model.r](Scripts_R/2_1-Fit%20presence%20absence%20model.r), [Scripts_R/2_2-Fit abundance model.r](Scripts_R/2_2-Fit%20abundance%20model.r)); Slurm job scripts for cluster runs are available in [Models/](Models).
 3. **Diagnostics**: Assess convergence, effective sample sizes, and PSRF ([Scripts_R/3-Models convergence and fit.r](Scripts_R/3-Models%20convergence%20and%20fit.r)).
 4. **Spatial predictions**: Generate posterior samples and means over the spatial grid ([Scripts_R/4-Spatial predictions with fitted HMSC.r](Scripts_R/4-Spatial%20predictions%20with%20fitted%20HMSC.r)).
-5. **Extrapolation assessment**: Use the [`dsmextra`](https://densitymodelling.github.io/dsmextra/articles/dsmextra.html) R package ([Bouchet et al. 2020](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13469)) to quantify analogue conditions, and univariate/combinatorial extrapolation, identifying where spatial predictions extrapolate beyond the environmental/anthropogenic conditions used to fit both HMSC models, and summarize/plot extrapolation risk ([Scripts_R/Extrapolation_analysis.R](Scripts_R/Extrapolation_analysis.R)).
+5. **Extrapolation assessment**: Use the [`dsmextra`](https://densitymodelling.github.io/dsmextra/articles/dsmextra.html) R package ([Bouchet et al. 2020](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13469)) to quantify analogue conditions, and univariate/combinatorial extrapolation, identifying where spatial predictions extrapolate beyond the environmental/anthropogenic conditions used to fit both HMSC models, and summarize/plot extrapolation risk ([Scripts_R/Extrapolation_analysis_Figure_S5_S6_S7.R](Scripts_R/Extrapolation_analysis_Figure_S5_S6_S7.R)).
 6. **Hurdle outputs**: Combine presence/absence and abundance to produce hurdle predictions and derived rasters ([Scripts_R/5-Hurdle model predictions.r](Scripts_R/5-Hurdle%20model%20predictions.r)).
 7. **Hotspot analysis**: Emerging Hotspot Analysis (EHSA) and visualization scripts ([Scripts_R/6-Emerging Hotspot Analysis.r](Scripts_R/6-Emerging%20Hotspot%20Analysis.r), [Scripts_R/Figure_3_4.r](Scripts_R/Figure_3_4.r), [Scripts_R/Figure_5_6.r](Scripts_R/Figure_5_6.r)); results can be explored interactively with the [EHSA GIS viewer](Outputs/EHSA/EHSA_GIS_viewer.html) (download the HTML file and open it in a web browser to view).
-8. **MPA coverage**: Quantify overlap of hotspot classes with marine protected areas ([Scripts_R/Figure_7.r](Scripts_R/Figure_7.r)).
-9. **Trend/hotspot cross-tabulation**: Cross-tabulate EHSA classes (hotspot/coldspot/no pattern) against Sen's slope trend significance of hurdle-model abundance, by life stage ([Scripts_R/Figure_S_EHSA_Sen_slope_crosstab.r](Scripts_R/Figure_S_EHSA_Sen_slope_crosstab.r)).
+8. **MPA coverage**: Quantify overlap of hotspot classes with marine protected areas ([Scripts_R/Figure_7_S8.r](Scripts_R/Figure_7_S8.r)).
+9. **Trend/hotspot cross-tabulation**: Cross-tabulate EHSA classes (hotspot/coldspot/no pattern) against Sen's slope trend significance of hurdle-model abundance, by life stage ([Scripts_R/Figure_S18_S19_S20.r](Scripts_R/Figure_S18_S19_S20.r)).
 
 ## Inputs and Data ![data](https://img.shields.io/badge/-data-283593?style=flat-square)
 - **Primary inputs**: RData objects and spatial layers in [Inputs_HMSC/](Inputs_HMSC).
@@ -83,7 +83,7 @@ If `zenodor` is absent, it is pulled via `remotes::install_github("FRBCesab/zeno
    ```r
    source("Scripts_R/6-Emerging Hotspot Analysis.r")
    ```
-8. Generate figures as needed (e.g., `Scripts_R/Figure_1.r`, `Scripts_R/Figure_2.r`, `Scripts_R/Figure_3_4.r`, `Scripts_R/Figure_5_6.r`, `Scripts_R/Figure_7.r` or `Scripts_R/Figure_S*.r`).
+8. Generate figures as needed (e.g., `Scripts_R/Figure_1_S16.r`, `Scripts_R/Figure_2.r`, `Scripts_R/Figure_3_4.r`, `Scripts_R/Figure_5_6.r`, `Scripts_R/Figure_7_S8.r` or `Scripts_R/Figure_S*.r`).
 
 ## Repository Structure ![folders](https://img.shields.io/badge/-folders-3949ab?style=flat-square)
 - [:file\_folder: **Scripts_R**](Scripts_R/): All analysis scripts (run from the repository root, e.g. `source("Scripts_R/0-Load libraries.r")`).
@@ -94,7 +94,7 @@ If `zenodor` is absent, it is pulled via `remotes::install_github("FRBCesab/zeno
   - [4-Spatial predictions with fitted HMSC.r](Scripts_R/4-Spatial%20predictions%20with%20fitted%20HMSC.r): Spatial posterior predictions.
   - [5-Hurdle model predictions.r](Scripts_R/5-Hurdle%20model%20predictions.r): Combine components into hurdle outputs.
   - [6-Emerging Hotspot Analysis.r](Scripts_R/6-Emerging%20Hotspot%20Analysis.r): Emerging Hotspot Analysis workflow.
-  - Figure-generation scripts: all `Figure_*.r` scripts (including main and supplementary figures; e.g., [Figure_7.r](Scripts_R/Figure_7.r), [Figure_S8_S9.r](Scripts_R/Figure_S8_S9.r), [Figure_S_EHSA_Sen_slope_crosstab.r](Scripts_R/Figure_S_EHSA_Sen_slope_crosstab.r)).
+  - Figure-generation scripts: all `Figure_*.r`/`.R` scripts (including main and supplementary figures; e.g., [Figure_7_S8.r](Scripts_R/Figure_7_S8.r), [Figure_S14_S15.r](Scripts_R/Figure_S14_S15.r), [Figure_S18_S19_S20.r](Scripts_R/Figure_S18_S19_S20.r)).
 - [:file\_folder: **Inputs_HMSC**](Inputs_HMSC/): Input data and spatial layers.
 - [:file\_folder: **Models**](Models/): Fitted model objects and initialization files.
 - [:file\_folder: **Outputs**](Outputs/): Generated predictions and derived results.
